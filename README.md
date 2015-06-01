@@ -1,5 +1,5 @@
-# F90GIO
-                  F90GIO Release v1.0
+#  F90GIO Release v1.0
+Author: Da,Cheng     Email: cda@umd.edu
 
 Fortran 90 General I/O Interface (F90GIO) provides I/O interface for 
 Binary, NetCDF, HDF4, HDF5 reading/writing by using Fortran 90
@@ -18,3 +18,5 @@ how to compile F90IO library, III. how to use F90IO library.
 I.   Install NetCDF/HDF4/HDF5 library
 II.  Install F90IO library
 III. Use F90IO library
+
+
