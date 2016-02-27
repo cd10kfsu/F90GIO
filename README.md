@@ -20,6 +20,7 @@ II.  Install F90IO library
 III. Use F90IO library
 
 I. Install NetCDF/HDF4/HDF5 library
+
 1. If you'd like to use my netcdf & hdf4 module simultenously, you need
    to disable the netcdf-I/O capability (--disable-netcdf) when 
    runnning configure. Other important flags for F90GIO includes:
