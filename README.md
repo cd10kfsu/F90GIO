@@ -7,7 +7,7 @@ languages. It is developed in the hope of allieviating researchers'
 pressure in atmospheric and oceanic science to deal with either re-
 analysis, forecast, or remote sensed data. Instead of learning these
 techniques, people may want to focus on the science problems. instead
-of technical tricks. With this thought in mind, the author deliever 
+of technical tricks. With this thought in mind, I decide to deliever 
 this package to the public. Most of the routines have been tested 
 both on Mac Pro and Linux clusters.
 
