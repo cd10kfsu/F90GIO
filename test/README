@@ -1,0 +1,13 @@
+1.
+After running test_nc.exe test_nc_g.exe, check if their results is the
+same as the content in the nc.results_correct
+
+
+2.
+After running test_h4.exe test_h4_g.exe, check if their results is the
+same as the content in the h4.results_correct
+
+
+3.
+After running test_h5.exe test_h5_g.exe, check if their results is the
+same as the content in the h5.results_correct

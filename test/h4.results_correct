@@ -1,0 +1,23 @@
+ Warning: var ( longitude ) does not exist, now creating it.
+ Inquired variable name: longitude
+   VAR_ID                =          0
+   VAR_SDS_ID            =     262144
+   VAR_SDS_NAME          = longitude
+   VAR_RANK              =          1
+    |-> VAR_DIM(    1   ) =         10
+   VAR_TYPE              = DFNT_INT32
+   VAR_ATRRIBUTE_COUNTS =          1
+    |-> ATTRIBUTE(    1  )
+         || Name:             unit       | Type:      DFNT_CHAR8       | Dims:         11        ||
+ Original data--------------------------
+ varname = longitude
+ size of var =           10
+ var values:
+  36  72 108 144 180 216 252 288 324 360
+ Attribute: unit = degreeNorth
+ Read from HDF4 file--------------------
+ varname = longitude
+ size of var =           10
+ var values:
+  36  72 108 144 180 216 252 288 324 360
+ Attribute: unit = degreeNorth
