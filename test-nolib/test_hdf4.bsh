@@ -12,6 +12,7 @@ H4_LFLAGS=`cat ../src/makefile.config |grep H4_LFLAGS|cut -d '=' -f2`
 cp ../src/mod_f90gioh4.f90 . 
 cp ../test/test_h4.f90 .
 
+echo "$FC ${FC_CFLAGS} ${H4_CFLAGS} mod_f90gioh4.f90 test_h4.f90 ${FC_LFLAGS} -o test_h4.exe ${H4_LFLAGS}"
 $FC ${FC_CFLAGS} ${H4_CFLAGS} mod_f90gioh4.f90 test_h4.f90 ${FC_LFLAGS} -o test_h4.exe ${H4_LFLAGS}
 
 ./test_h4.exe > results.hdf

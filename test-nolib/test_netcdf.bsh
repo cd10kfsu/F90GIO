@@ -13,7 +13,9 @@ cp ../src/mod_f90gionc.f90 .
 cp ../test/test_nc.f90 .
 ln -sf ../test/netcdf_testdata.nc .
 
+echo "$FC ${FC_CFLAGS} ${NC_CFLAGS} mod_f90gionc.f90 test_nc.f90 ${FC_LFLAGS} -o test_nc.exe ${NC_LFLAGS}"
 $FC ${FC_CFLAGS} ${NC_CFLAGS} mod_f90gionc.f90 test_nc.f90 ${FC_LFLAGS} -o test_nc.exe ${NC_LFLAGS}
+
 
 ./test_nc.exe > results.nc
 diff results.nc ../test/nc.results_correct

@@ -48,7 +48,7 @@ libf90gio.a: mod_f90gionc.o mod_f90gioh4.o mod_f90gioh5.o mod_f90gio.o
 	$(ARCHIVER) $(ARCHIEVER_FLAGS) $@ $^
 
 mod_f90gio.o: mod_f90gio.f90 
-	$(FC) -c $(FC_CFLAGS) $(NC_CFALGS) $(H4_CFLAGS) $(H5_CFLAGS) $<
+	$(FC) -c $(FC_CFLAGS) $(NC_CFLAGS) $(H4_CFLAGS) $(H5_CFLAGS) $<
 
 mod_f90gionc.o: mod_f90gionc.f90
 	$(FC) -c $(FC_CFLAGS) $(NC_CFLAGS) $<

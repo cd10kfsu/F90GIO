@@ -13,6 +13,7 @@ cp ../src/mod_f90gioh5.f90 .
 cp ../test/test_h5.f90 .
 ln -sf ../test/hdf5_testdata.h5 .
 
+echo "$FC ${FC_CFLAGS} ${H5_CFLAGS} mod_f90gioh5.f90 test_h5.f90 ${FC_LFLAGS} -o test_h5.exe ${H5_LFLAGS}"
 $FC ${FC_CFLAGS} ${H5_CFLAGS} mod_f90gioh5.f90 test_h5.f90 ${FC_LFLAGS} -o test_h5.exe ${H5_LFLAGS}
 
 ./test_h5.exe > results.h5
