@@ -1,4 +1,4 @@
-#  F90GIO Release v1.0
+#  F90GIO Release v1.1
 Author: Da,Cheng     Email: cda@umd.edu
 
 Fortran 90 General I/O Interface (F90GIO) provides I/O interface for 
