@@ -23,7 +23,7 @@ cda@umd.edu. Thanks!
 
 I. Install NetCDF/HDF4/HDF5 library
 
-1. If you'd like to use my netcdf & hdf4 module simultenously, you need
+1. For installing HDF4, if you'd like to use my netcdf & hdf4 module simultenously, you need
    to disable the netcdf-I/O capability:
 
        --disable-netcdf
@@ -37,7 +37,7 @@ I. Install NetCDF/HDF4/HDF5 library
    source code pakage or see this file online
 (https://www.hdfgroup.org/ftp/HDF/HDF_Current/src/unpacked/release_notes/INSTALL).
 
-2. For HDF5 module, you need to add flag: 
+2. For HDF5 compilation, you need to add flag: 
 
        --enable-fortran --enable-fotran2003
 
@@ -49,17 +49,17 @@ II. Install F90GIO library
 
 1. For the first step, you need to modify the compiling environment in the file:
 
-      makefile.config
+        makefile.config
 
 2. If you want to install the whole F90GIO library, you can go to the src/, and
    type:
 
-      make all
-      make install
+        make all
+        make install
 
    Then go to the directory test/, run
      
-      make all
+        make all
 
    you will find several .exe excutables. Run these excuatables and compare their
    results with *.results_correct
@@ -67,18 +67,18 @@ II. Install F90GIO library
 3. F90GIO also supports to build the library alone. For example, if you only want
    to build netcdf library, just to to the src/, and type:
       
-      make netcdf
-      make install-netcdf
+        make netcdf
+        make install-netcdf
 
    Then go to the directory test/, run
 
-      make test-netcdf
+         make test-netcdf
 
 4. Someone may also want to compile those files directly with their own files 
    instead of building libs. This is also possible. Go to the test-nolib/ and
    run:
 
-      make test-netcdf
+         make test-netcdf
 
    as an example. You can check *.bsh files to see how to use them.
 
