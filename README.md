@@ -16,9 +16,8 @@ should be included when compiling NetCDF, HDF4, HDF5 libraries; II.
 how to compile F90IO library, III. how to use F90IO library.
 
 If you find this package helpful, and you are using it in your papers, 
-please acknowledge it in your acknowledgement section in your papers.
-If possible, please also send me an email & your published paper to
-cda@umd.edu. Thanks!
+please acknowledge it in your acknowledgement section in your papers if 
+possible. Thanks!
 
 
 I. Install NetCDF/HDF4/HDF5 library
