@@ -64,6 +64,12 @@ module mod_f90gioh5
   public :: H5_ReadVar3d_Real4
   public :: H5_ReadVar3d_Real8
 
+
+  public :: h5_CreateEmptyFile
+  public :: h5_WriteVar3d_Real4
+  public :: h5_WriteVar3d_Real8
+
+
 !-----------------------
 ! procedure overloading
 !-----------------------
@@ -120,6 +126,200 @@ module mod_f90gioh5
 
 
 contains
+function h5_createEmptyFile(fileName) result(errStatus)
+!$$$ subprogram documentation block
+!       .           .                  .
+!  subprogram: H5_createEmptyFile
+!    programmer: Cheng Da            org: umd          date: 2017-02-22
+!
+!  purpose:
+!    create an empty file
+!  revision history:
+!
+!  input arguments:
+!    fileName      - name of the HDF5 file
+!
+!  output arguments:
+!    errStatus     - return SUCCEED (0) if read successfully, otherwise FAIL(-1)
+!$$$   
+  implicit none
+
+  character(*),intent(in) :: fileName
+  integer                 :: errStatus
+
+  integer(HID_T) :: file_id, dspace_id, dset_id
+  logical        :: lexist
+
+  inquire(file=trim(filename),exist=lexist)
+  if (lexist) then
+     write(*,*) "Error: file (", trim(fileName), ") already exists."
+     errStatus = FAIL
+     return 
+  endif
+  call h5open_f(errStatus)
+  call h5fcreate_f(trim(fileName),H5F_ACC_EXCL_F,file_id,errStatus)
+  if (errStatus/=SUCCEED) then
+     write(*,*) "Error: fail to create the empty file: ", trim(fileName)
+     return
+  endif
+  call h5fclose_f(file_id,errStatus)
+  call h5close_f(errStatus)
+  
+endfunction
+
+function h5_writeVar3d_Real8(fileName, varName, varValue) result (errStatus)
+!$$$ subprogram documentation block
+!       .           .                  .
+!  subprogram: H5_writeVar3d_Real8
+!    programmer: Cheng Da            org: umd          date: 2017-02-22
+!
+!  purpose:
+!    write 64-bit float 3d array. 
+!    if a variable, identified by the <varName>, is not found in the dataset,
+!    this variable with the value <varValue> is added to the file.
+!    if this variable is found in the file, its values will be overwritten.
+!  revision history:
+!
+!  input arguments:
+!    fileName      - name of the HDF5 file
+!    varName       - name of the inquired variable
+!    varValue      - 3d value array of the inquired variable
+!
+!  output arguments:
+!    errStatus     - return SUCCEED (0) if read successfully, otherwise FAIL(-1)
+!$$$    
+  implicit none
+
+  character(*),intent(in)    :: fileName
+  character(*),intent(in)    :: varName
+  real(r8),target,intent(in) :: varValue(:,:,:)
+  integer                    :: errStatus
+
+  integer(HSIZE_T) :: ndims(RANK_THREE), ndims_max(RANK_THREE)
+  integer(HID_T)   :: file_id, dspace_id, dset_id
+  type(c_ptr)      :: f_ptr
+
+  call h5open_f(errStatus)
+  call h5eset_auto_f(printflag=0,hdferr=errStatus) ! printon (1), printoff(0)
+  call h5fopen_f(trim(fileName),H5F_ACC_RDWR_F,file_id,errStatus)
+  if (errStatus/=SUCCEED) then
+     write(*,*) "Error: fail to open file:", trim(fileName)
+     return
+  endif
+  call h5dopen_f(file_id,trim(varName), dset_id, errStatus)
+  if (errStatus/=SUCCEED) then
+     ! create new vars in the file
+     ndims = shape(varValue)
+     call h5screate_simple_f(RANK_THREE, ndims, dspace_id, errStatus)
+     if (errStatus/=SUCCEED) then
+         write(*,*) "Error: fail to create space id for var:", trim(varName)
+         return
+      endif
+      call h5dcreate_f(file_id,trim(varName),h5kind_to_type(r8,H5_REAL_KIND),dspace_id,dset_id,errStatus)
+      if (errStatus/=SUCCEED) then
+         write(*,*) "Error: fail to create dataset id for var:", trim(varName)
+         return
+      endif
+      write(*,*) "creating Var (", trim(varName),")"
+  else
+      ! if already exist the var, check if dimension matches
+      call h5dget_space_f(dset_id, dspace_id, errStatus)
+      call h5sget_simple_extent_dims_f(dspace_id, ndims, ndims_max, errStatus)
+      if (any(shape(varValue)/=ndims)) then
+         write(*,*) "Error: dataset dimension mismatch for var:", trim(varName)
+         write(*,*) "       shape of vars to put=", shape(varValue)
+         write(*,*) "       shape of vars from file=", ndims
+         return
+      endif
+      write(*,*) "Var (", trim(varName),") already exists. Overwrite its contents."
+  endif
+  f_ptr = C_LOC(varValue(1,1,1))
+  call h5dwrite_f(dset_id,h5kind_to_type(r8,H5_REAL_KIND),f_ptr,errStatus)
+  if (errStatus/=SUCCEED) then
+     write(*,*) "Error: fail to put var value into dataspace (", trim(varName), ")"
+     return
+  endif
+  call h5fclose_f(file_id,errStatus)
+  call h5close_f(errStatus)
+
+endfunction
+
+
+function h5_writeVar3d_Real4(fileName, varName, varValue) result (errStatus)
+!$$$ subprogram documentation block
+!       .           .                  .
+!  subprogram: H5_writeVar3d_Real4
+!    programmer: Cheng Da            org: umd          date: 2017-02-22
+!
+!  purpose:
+!    write 32-bit float 3d array. 
+!
+!  revision history:
+!
+!  input arguments:
+!    fileName      - name of the HDF5 file
+!    varName       - name of the inquired variable
+!    varValue      - 3d value array of the inquired variable
+!
+!  output arguments:
+!    errStatus     - return SUCCEED (0) if read successfully, otherwise FAIL(-1)
+!$$$    
+  implicit none
+
+  character(*),intent(in)    :: fileName
+  character(*),intent(in)    :: varName
+  real(r4),target,intent(in) :: varValue(:,:,:)
+  integer                    :: errStatus
+
+  integer(HSIZE_T) :: ndims(RANK_THREE), ndims_max(RANK_THREE)
+  integer(HID_T)   :: file_id, dspace_id, dset_id
+  type(c_ptr)      :: f_ptr
+
+  call h5open_f(errStatus)
+  call h5eset_auto_f(printflag=0,hdferr=errStatus) ! printon (1), printoff(0)
+  call h5fopen_f(trim(fileName),H5F_ACC_RDWR_F,file_id,errStatus)
+  if (errStatus/=SUCCEED) then
+     write(*,*) "Error: fail to open file:", trim(fileName)
+     return
+  endif
+  call h5dopen_f(file_id,trim(varName), dset_id, errStatus)
+  if (errStatus/=SUCCEED) then
+     ! create new vars in the file
+     ndims = shape(varValue)
+     call h5screate_simple_f(RANK_THREE, ndims, dspace_id, errStatus)
+     if (errStatus/=SUCCEED) then
+         write(*,*) "Error: fail to create space id for var:", trim(varName)
+         return
+      endif
+      call h5dcreate_f(file_id,trim(varName),h5kind_to_type(r4,H5_REAL_KIND),dspace_id,dset_id,errStatus)
+      if (errStatus/=SUCCEED) then
+         write(*,*) "Error: fail to create dataset id for var:", trim(varName)
+         return
+      endif
+      write(*,*) "creating Var (", trim(varName),")"
+  else
+      ! if already exist the var, check if dimension matches
+      call h5dget_space_f(dset_id, dspace_id, errStatus)
+      call h5sget_simple_extent_dims_f(dspace_id, ndims, ndims_max, errStatus)
+      if (any(shape(varValue)/=ndims)) then
+         write(*,*) "Error: dataset dimension mismatch for var:", trim(varName)
+         write(*,*) "       shape of vars to put=", shape(varValue)
+         write(*,*) "       shape of vars from file=", ndims
+         return
+      endif
+      write(*,*) "Var (", trim(varName),") already exists. Overwrite its contents."
+  endif
+  f_ptr = C_LOC(varValue(1,1,1))
+  call h5dwrite_f(dset_id,h5kind_to_type(r4,H5_REAL_KIND),f_ptr,errStatus)
+  if (errStatus/=SUCCEED) then
+     write(*,*) "Error: fail to put var value into dataspace (", trim(varName), ")"
+     return
+  endif
+  call h5fclose_f(file_id,errStatus)
+  call h5close_f(errStatus)
+
+endfunction
+
 
 function H5_ReadVar3d_Real4( fileName, varName, varValue) result ( errStatus )
 !$$$ subprogram documentation block

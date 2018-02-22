@@ -1,6 +1,7 @@
 include ./makefile.config
 
-all: netcdf hdf4 hdf5 f90gio
+#all: netcdf hdf5 f90gio hdf4
+all: netcdf hdf5 f90gio 
 
 netcdf: libf90gionc.a
 
@@ -12,7 +13,8 @@ f90gio: libf90gio.a
 
 .PHONY: install install-netcdf install-hdf4 install-hdf5 clean
 
-install: install-netcdf install-hdf4 install-hdf5 install-f90gio
+#install: install-netcdf install-hdf4 install-hdf5 install-f90gio
+install: install-netcdf install-hdf5 install-f90gio
 
 install-netcdf:
 	mv libf90gionc.a $(F90GIO_LIB_DIR)
@@ -44,7 +46,8 @@ libf90gioh4.a: mod_f90gioh4.o
 libf90gioh5.a: mod_f90gioh5.o
 	$(ARCHIVER) $(ARCHIEVER_FLAGS) $@ $<
 
-libf90gio.a: mod_f90gionc.o mod_f90gioh4.o mod_f90gioh5.o mod_f90gio.o
+#libf90gio.a: mod_f90gionc.o mod_f90gioh4.o mod_f90gioh5.o mod_f90gio.o
+libf90gio.a: mod_f90gionc.o mod_f90gioh5.o mod_f90gio.o
 	$(ARCHIVER) $(ARCHIEVER_FLAGS) $@ $^
 
 mod_f90gio.o: mod_f90gio.f90 

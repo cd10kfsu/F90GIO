@@ -9,5 +9,5 @@ test-hdf5:
 
 all:
 	( /bin/bash test_netcdf.bsh )
-	( /bin/bash test_hdf4.bsh )
+	#( /bin/bash test_hdf4.bsh )
 	( /bin/bash test_hdf5.bsh )

@@ -1,3 +1,11 @@
+NOTE:
+
+f90gio-v1.1.1
+  the updated makefile will automatically check if the results are correct or not
+
+---------------------------------------------------------------------------
+f90gio-v1.1
+
 1.
 After running test_nc.exe test_nc_g.exe, check if their results is the
 same as the content in the nc.results_correct
