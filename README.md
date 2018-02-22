@@ -2,12 +2,12 @@
 Author: Da,Cheng     Email: cda@umd.edu
 
 Fortran 90 General I/O Interface (F90GIO) provides I/O interface for 
-NetCDF, HDF4, HDF5 reading/writing by using Fortran 90languages. 
-It is developed in the hope of allieviating researchers' load in 
+NetCDF, HDF4, HDF5 reading/writing with Fortran 90 languages. 
+It is developed in the hope of allieviating researchers' burden in 
 atmospheric and oceanic science to deal with either re-analysis, 
 forecast, or remote sensed data. Instead of wasting time learning 
-these techniques, people may want to focus on the scientific problems. 
-With this thought in mind, I decide to deliever this package 
+these techniques, researchers may prefer to focus on the scientific 
+problems. With this thought in mind, I decide to deliever this package 
 to the public. Most of the routines have been tested both on Mac Pro 
 and Linux clusters.
 
