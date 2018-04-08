@@ -19,7 +19,7 @@ module mod_f90gio
 !$$$ end documentation block
 
   use mod_f90gionc
-  !use mod_f90gioh4
+  use mod_f90gioh4
   use mod_f90gioh5
   implicit none
 
