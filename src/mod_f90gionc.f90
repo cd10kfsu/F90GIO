@@ -1,4 +1,4 @@
-Module mod_f90gionc
+Module mod_f90gionc.f90
 !$$$  program documentation block
 !         .           .            .
 !  program name: mod_f90gionc
@@ -10,7 +10,7 @@ Module mod_f90gionc
 !  revision history:
 !    2014-Nov-30     Da,Cheng    - creator
 !    2015-Jan-20     Da,Cheng    - add 4d data read routine
-!                    Da,Cheng    - see git log
+!
 !  file dependencies:
 !
 !  attributes: 
@@ -69,7 +69,9 @@ Module mod_f90gionc
   !
   Public :: NC_CreateFile
   Public :: NC_CreateDims
-  Public :: NC_CreateVars
+  Public :: NC_CreateVars  ! also used to append new vars
+
+  Public :: NC_AddDim
 
   Public :: NC_UpdateVar1d
   Public :: NC_UpdateVar2d
@@ -226,6 +228,61 @@ Subroutine NC_CreateFile(fileName)
 Endsubroutine 
 
 
+Subroutine NC_AddDim(fileName,dimName,lunlimited,dimLength)
+  implicit none
+
+  character(*),intent(in) :: fileName
+  character(*),intent(in) :: dimName
+  logical,     intent(in) :: lunlimited
+  integer,     intent(in) :: dimLength
+
+  integer :: ierr, ncId, i, ndims, dimId
+  character(80),allocatable :: dimNames(:)
+
+
+  ierr = NF90_Open( TRIM(fileName), NF90_WRITE, ncId)
+  call NC_Check(ierr,"NC_AddDim: open file "//trim(fileName)) 
+  !
+  ! get the existing dims
+  !
+  ierr = NF90_inquire(ncid, nDimensions=ndims)
+  call NC_Check(ierr,"NC_AddDim: inquire nDimensions "//trim(fileName)) 
+ 
+  if (ndims>0) then
+     allocate(dimNames(ndims))
+     do i = 1, ndims
+        ierr = nf90_inquire_dimension(ncid, dimid=i, name=dimNames(i))
+        call NC_Check(ierr,"NC_AddDim: inquire dimid")
+        if (trim(dimName)==trim(dimNames(i))) then
+           write(*,*) "[err] NC_AddDim: dim (", trim(dimNames(i)), ") already exists"
+           stop 114
+        endif
+     enddo
+  endif
+  !
+  ! add new dims
+  !
+  ierr = NF90_reDef(ncId)
+  call NC_Check(ierr,"NC_AddDim: redef") 
+  if (lUnlimited) then
+     ierr = NF90_Def_dim(ncId,trim(dimName),NF90_Unlimited,dimId)
+  else
+     ierr = NF90_Def_dim(ncId,trim(dimName),dimLength,dimId)
+  endif
+  call NC_Check(ierr,"NC_AddDim: define dim: "//trim(dimName))
+
+  ierr=NF90_enddef(ncId)
+  call NC_Check(ierr,"NC_AddDim: enddef")
+  ierr=NF90_Close(ncId)
+  call NC_Check(ierr,"NC_AddDim: close file "//TRIM(fileName))
+
+  if(allocated(dimNames)) deallocate(dimNames)
+
+
+Endsubroutine 
+
+
+
 Subroutine NC_CreateDims(fileName,nDims,dimNames,ldimUnlimited,dimLengths)
   implicit none
 
@@ -298,8 +355,8 @@ Subroutine NC_CreateVars(fileName,nVars,varNames,varTypes,varMaxDims,varDimNames
 
   ierr = NF90_inquire(ncid, nDimensions=ndims)
   call NC_Check(ierr,"NC_CreateVars: inquire nDimensions "//trim(fileName)) 
-  if (ndims<0) then
-     write(*,*) "[err] NC_createVars: nDims=0"
+  if (ndims<=0) then
+     write(*,*) "[err] NC_createVars: nDims<=0"
      stop 112
   endif
   
@@ -326,6 +383,7 @@ Subroutine NC_CreateVars(fileName,nVars,varNames,varTypes,varMaxDims,varDimNames
         endif
      enddo
   enddo
+  deallocate(dimNames,dimIds)
 
   ierr = NF90_reDef(ncId)
   call NC_Check(ierr,"NC_CreateVars: redef") 
@@ -351,6 +409,7 @@ Subroutine NC_CreateVars(fileName,nVars,varNames,varTypes,varMaxDims,varDimNames
   call NC_Check(ierr,"NC_CreateVars: enddef")
   ierr=NF90_Close(ncId)
   call NC_Check(ierr,"NC_CreateVars: close file "//TRIM(fileName))
+
 
 Endsubroutine 
 
