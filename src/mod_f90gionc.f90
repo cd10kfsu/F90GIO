@@ -1,4 +1,4 @@
-Module mod_f90gionc.f90
+Module mod_f90gionc
 !$$$  program documentation block
 !         .           .            .
 !  program name: mod_f90gionc
