@@ -1,5 +1,5 @@
 program main
-  use common_nc
+  use mod_f90gionc
   implicit none
 
   character(80) :: fnout="test2.nc"
@@ -44,13 +44,13 @@ program main
 
 
   call nc_createfile(trim(fnout))
-  pause "create file"
+  print*, "create file"
 
   dim_name = (/x_name, y_name, z_name/)
   dim_length = (/nx, ny, nz/)
   lunlimited = (/.true., .false., .false./)
   call nc_createdims(trim(fnout),ndims,dim_name,lunlimited,dim_length)
-  pause "create dim"
+  print*, "create dim"
 
   call nc_addDim(trim(fnout),"nlevSoil",lunlimited=.false.,dimLength=4)
 
@@ -64,13 +64,16 @@ program main
   var_dimname(1:3,4) = (/z_name, y_name, x_name/)
 
   call nc_createvars(trim(fnout),nvars,var_name, var_type, var_maxdim, var_dimname)
-  pause "create vars"
+  print*, "create vars"
 
 
   call nc_updatevar2d_integer4(trim(fnout),trim(var_name(1)),t2d)
   call nc_updatevar2d_integer4(trim(fnout),trim(var_name(2)),q2d)
   call nc_updatevar1d_integer4(trim(fnout),trim(var_name(3)),lon1d)
   call nc_updatevar3d_integer4(trim(fnout),trim(var_name(4)),p3d)
+
+  print*, "Test passed"
+
 
 endprogram
 

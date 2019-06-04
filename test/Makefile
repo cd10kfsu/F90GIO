@@ -1,4 +1,4 @@
-include ../src/makefile.config
+include ../libsrc/makefile.config
 
 F90GIO_CFLAGS=-I$(F90GIO_INCLUDE_DIR)
 F90GIO_NC_LFLAGS=-L$(F90GIO_LIB_DIR) -lf90gionc
@@ -11,31 +11,31 @@ all: test-netcdf test-hdf4 test-hdf5 test-f90gio
 
 test-netcdf: test_nc.exe
 	./$< > nc.results
-	diff nc.results_correct nc.results && echo "$@ ....... PASSED" || echo "$@ ....... FAILED"
+	tail -1 nc.results |grep "Test passed" && echo "$@ ....... PASSED" || echo "$@ ....... FAILED"
 	rm -f nc.results
 
 
 test-hdf4: test_h4.exe
 	./$< > h4.results
-	diff h4.results_correct h4.results && echo "$@ ....... PASSED" || echo "$@ ....... FAILED"
+	tail -1 h4.results |grep "Test passed" && echo "$@ ....... PASSED" || echo "$@ ....... FAILED"
 	rm -f h4.results
 	rm -f *.hdf
 
 test-hdf5: test_h5.exe
 	./$< > h5.results
-	diff h5.results_correct h5.results && echo "$@ ....... PASSED" || echo "$@ ....... FAILED"
+	tail -1 h5.results |grep "Test passed" && echo "$@ ....... PASSED" || echo "$@ ....... FAILED"
 	rm -f h5.results
 
 test-f90gio: test_nc_g.exe test_h4_g.exe test_h5_g.exe
 #test-f90gio: test_nc_g.exe test_h5_g.exe
 	./test_nc_g.exe > nc.results
-	diff nc.results_correct nc.results && echo "$@:netcdf ....... PASSED" || echo "$@:netcdf ....... FAILED" 
+	tail -1 nc.results |grep "Test passed" && echo "$@:netcdf ....... PASSED" || echo "$@:netcdf ....... FAILED" 
 	rm -f nc.results
 	./test_h4_g.exe > h4.results
-	diff h4.results_correct h4.results && echo "$@:hdf4 ....... PASSED" || echo "$@:hdf4 ....... FAILED" 
+	tail -1 h4.results |grep "Test passed" && echo "$@:hdf4 ....... PASSED" || echo "$@:hdf4 ....... FAILED" 
 	rm -f h4.results
 	./test_h5_g.exe > h5.results 
-	diff h5.results_correct h5.results && echo "$@:hdf5 ....... PASSED" || echo "$@:hdf5 ....... FAILED"
+	tail -1 h5.results |grep "Test passed" && echo "$@:hdf5 ....... PASSED" || echo "$@:hdf5 ....... FAILED"
 	rm -f h5.results
 
 #test-f90gio: test_nc_g.exe test_h5_g.exe

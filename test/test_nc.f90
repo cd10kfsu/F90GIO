@@ -31,6 +31,7 @@ program test_nc
   Integer(4)             :: nx, ny
   Integer(4),allocatable :: i4_2d(:,:), var_2d(:,:)
   Integer(4)             :: ix, iy
+  Logical                :: lpass(4) = .true.
 
 ! These information can be dumped by using command ncdump 
   nx = 6
@@ -60,12 +61,25 @@ program test_nc
      Write(*,"(100(I3))") ( i4_2d(iy,ix),iy=1,ny)
   Enddo
 
+  if (any(var_2d/=i4_2d)) lpass(1) = .false.
+  if (any(shape(var_2d)/=shape(i4_2d))) lpass(2) = .false.
+
+
 ! Or you can select the low-level routines to read data
   Call NC_ReadVar2d_Integer4("netcdf_testdata.nc", TRIM(var_name), i4_2d )
   Write(*,*) "Got by NC_ReadVar2d_Integer4---------"
   Do ix = 1, nx
      Write(*,"(100(I3))") ( i4_2d(iy,ix),iy=1,ny)
   Enddo
+
+  if (any(var_2d/=i4_2d)) lpass(3) = .false.
+  if (any(shape(var_2d)/=shape(i4_2d))) lpass(4) = .false.
+
+  if (.not.any(lpass)) then
+     write(*,*) "Test failed"
+  else
+     write(*,*) "Test passed"
+  endif
 
   Deallocate( i4_2d )
   

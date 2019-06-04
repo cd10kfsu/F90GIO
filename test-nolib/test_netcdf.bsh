@@ -2,14 +2,14 @@
 # example without using f90gio libs
 #set -xe
 
-FC=`cat ../src/makefile.config |grep FC | head -1 | cut -d "=" -f2`
-FC_CFLAGS=`cat ../src/makefile.config |grep FC_CFLAGS|cut -d '=' -f2`
-FC_LFLAGS=`cat ../src/makefile.config |grep FC_LFLAGS|cut -d '=' -f2`
+FC=`cat ../libsrc/makefile.config |grep FC | head -1 | cut -d "=" -f2`
+FC_CFLAGS=`cat ../libsrc/makefile.config |grep FC_CFLAGS|cut -d '=' -f2`
+FC_LFLAGS=`cat ../libsrc/makefile.config |grep FC_LFLAGS|cut -d '=' -f2`
 
-NC_CFLAGS=`cat ../src/makefile.config |grep NC_CFLAGS|cut -d '=' -f2`
-NC_LFLAGS=`cat ../src/makefile.config |grep NC_LFLAGS|cut -d '=' -f2`
+NC_CFLAGS=`cat ../libsrc/makefile.config |grep NC_CFLAGS|cut -d '=' -f2`
+NC_LFLAGS=`cat ../libsrc/makefile.config |grep NC_LFLAGS|cut -d '=' -f2`
 
-cp ../src/mod_f90gionc.f90 . 
+cp ../libsrc/mod_f90gionc.f90 . 
 cp ../test/test_nc.f90 .
 ln -sf ../test/netcdf_testdata.nc .
 
@@ -18,12 +18,13 @@ $FC ${FC_CFLAGS} ${NC_CFLAGS} mod_f90gionc.f90 test_nc.f90 ${FC_LFLAGS} -o test_
 
 
 ./test_nc.exe > results.nc
-diff results.nc ../test/nc.results_correct
-nl=`diff results.nc ../test/nc.results_correct | wc -l`
-if [ $nl -eq 0 ]; then
+tail -1 results.nc |grep "Test passed"
+nl=`tail -1 results.nc |grep "Test passed" | wc -l`
+if [ $nl -eq 1 ]; then
    echo "test_nc.f90 without libs              PASSED"
 else
    echo "test_nc.f90 without libs              FAILED"
 fi
+
 
 rm *.mod *.exe *.f90 *.nc

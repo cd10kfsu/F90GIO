@@ -1,4 +1,4 @@
-program test_h5_g
+program test_h4
 !$$$  program documentation block
 !         .           .            .
 !    programmer: da,cheng        org: umd      date: 2015-Jun-01
@@ -28,6 +28,7 @@ program test_h5_g
   Integer(4)             :: nx
   Integer(4)             :: ix
   Integer(4)             :: ios
+  logical                :: lpass(2) = .true.
 
 
   var_name  = "longitude"
@@ -54,7 +55,11 @@ program test_h5_g
   ios = H4_ReadSDSAttr1d( "hdf4_testdata.hdf", TRIM(var_name), &
                           TRIM(attr_name), attr2_val )
 
-! 
+  if (any(var_val/=var2_val)) lpass(1) = .false.
+  if (any(shape(var_val)/=shape(var2_val))) lpass(2) = .false.
+  
+  if (any(.not.lpass)) then
+
   Write(*,*) "Original data--------------------------"
   Write(*,*) "varname = ", TRIM(var_name)
   Write(*,*) "size of var = ", nx
@@ -68,6 +73,12 @@ program test_h5_g
   Write(*,*) "var values:"
   Write(*,"(20(I4))") ( var2_val(ix), ix = 1, nx )
   Write(*,*) "Attribute: ", TRIM(attr_name), " = ", TRIM(attr2_val)
+  
+  else
+
+  Write(*,*) "Test passed"
+
+  endif
 
 
   Deallocate( var_val, var2_val )

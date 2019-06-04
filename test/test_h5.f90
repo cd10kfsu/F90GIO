@@ -27,6 +27,8 @@ program test_h5
   Integer(4)             :: ix
   Integer(4)             :: ios
 
+  logical :: lpass(2) = .true.
+
 
   var_name  = "latitude"
   nx = 19
@@ -40,6 +42,11 @@ program test_h5
 ! get data from hdf4 file
   ios = H5_ReadVar2d( "hdf5_testdata.h5", TRIM(var_name), var2_val )
 ! 
+  if ( any(var_val/=var2_val) ) lpass(1) = .false.
+  if ( any(shape(var_val)/=shape(var2_val)) ) lpass(2) = .false.
+
+  if (any(.not.lpass)) then
+  
   Write(*,*) "Original data--------------------------"
   Write(*,*) "varname = ", TRIM(var_name)
   Write(*,*) "size of var = ", nx, ny
@@ -51,6 +58,12 @@ program test_h5
   Write(*,*) "size of var = ", SHAPE(var2_val) 
   Write(*,*) "var values:"
   Write(*,"(20(I4))") ( var2_val(ix,ny), ix = 1, nx )
+
+  else
+
+  Write(*,*) "Test passed"
+
+  endif
 
   Deallocate( var_val, var2_val )
 
