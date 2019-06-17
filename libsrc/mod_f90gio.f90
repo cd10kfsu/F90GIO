@@ -18,9 +18,17 @@ module mod_f90gio
 !
 !$$$ end documentation block
 
+#ifdef HAS_NC
   use mod_f90gionc
+#endif
+
+#ifdef HAS_H4
   use mod_f90gioh4
+#endif
+
+#ifdef HAS_H5
   use mod_f90gioh5
+#endif
   implicit none
 
 endmodule

@@ -14,8 +14,8 @@ endif()
 set(CMAKE_VERBOSE_MAKEFILE off)
 
 option(BUILD_NC "build f90gionc" ON)
-option(BUILD_H4 "build f90gioh4" ON)
-option(BUILD_H5 "build f90gioh5" ON)
+option(BUILD_H4 "build f90gioh4" OFF)
+option(BUILD_H5 "build f90gioh5" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "release")
@@ -117,7 +117,8 @@ endif()
 
 # build f90gio
 add_library(f90gio ${F90GIO_SRCS} libsrc/mod_f90gio.f90)
-add_compile_definitions(${FPPS_FLAGS})
+target_compile_definitions(f90gio PRIVATE ${FPPS_FLAGS})
+#add_compile_definitions(${FPPS_FLAGS})
 
 
 # testing
