@@ -1,1 +1,1 @@
-env.intel.pro15.sh
+env.gnu.github.sh

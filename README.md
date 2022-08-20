@@ -1,4 +1,6 @@
 #  F90GIO Release v1.1
+[![build_gfortran](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml/badge.svg)](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml)
+
 Author: Da,Cheng     Email: cda@umd.edu
 
 Fortran 90 General I/O Interface (F90GIO) provides I/O interface for 

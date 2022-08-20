@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 
-#set(CMAKE_Fortran_COMPILER ifort)
 project(f90gio Fortran)
+set(CMAKE_VERBOSE_MAKEFILE off)
+
 
 # for message display
 if(NOT WIN32)

@@ -1,0 +1,39 @@
+name: build_gfortran
+
+on:
+  push:
+  pull_request:
+
+env:
+  BUILD_TYPE: Debug
+
+jobs:
+  cmake_build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: "install NetCDF"
+      run: |
+           sudo apt install libnetcdf-dev libnetcdff-dev netcdf-bin
+
+    - name: "check version and envs"
+      run: |
+           nf-config --all
+           nc-config --all
+           gcc -v
+           gfortran -v
+           pwd
+
+    - name: "cmake build (only test NetCDF)"
+      run: |
+           source ./config/env.gnu.github.sh
+           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_Fortran_COMPILER=gfortran -DBUILD_H4=off -DBUILD_H5=off -DBUILD_NC=on -DCMAKE_VERBOSE_MAKEFILE=on
+           cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: "cmake test"
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{env.BUILD_TYPE}}
+
+
