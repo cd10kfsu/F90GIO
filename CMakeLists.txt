@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 project(f90gio Fortran)
-set(CMAKE_VERBOSE_MAKEFILE off)
+#set(CMAKE_VERBOSE_MAKEFILE on)
 
 
 # for message display
@@ -12,11 +12,10 @@ if(NOT WIN32)
 endif()
 
 
-set(CMAKE_VERBOSE_MAKEFILE off)
-
 option(BUILD_NC "build f90gionc" ON)
 option(BUILD_H4 "build f90gioh4" OFF)
 option(BUILD_H5 "build f90gioh5" OFF)
+option(TEST_FULL "run al tests"  OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "release")
@@ -29,9 +28,13 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 if (CMAKE_Fortran_COMPILER_ID MATCHES GNU)
-	set(CMAKE_Fortran_FLAGS_DEBUG "-fbacktrace -O0")
+	set(CMAKE_Fortran_FLAGS_DEBUG "-fbacktrace -O0 -g -fcheck=bounds")
 	set(CMAKE_Fortran_FLAGS_RELEASE "-O2")
     add_definitions(-cpp)
+    if (CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 10)
+        #set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch -O -lm -ltirpc")
+	set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
+    endif()
 elseif (CMAKE_Fortran_COMPILER_ID MATCHES Intel)
 	set(CMAKE_Fortran_FLAGS_DEBUG "-traceback -check bounds -O0")
 	set(CMAKE_Fortran_FLAGS_RELEASE "-O2 -fp-model precise")
@@ -212,6 +215,8 @@ if (HAS_H4)
         PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
 
 
+    if (TEST_FULL) 
+
     set(EXE test_h4_g)
     set(TESTSRC test/test_h4_g.f90)
     set(TESTLIBS f90gio ${F90GIO_LIBS})
@@ -241,6 +246,8 @@ if (HAS_H4)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
     set_tests_properties(${EXE} 
         PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
+
+    endif()
 
 endif()
 

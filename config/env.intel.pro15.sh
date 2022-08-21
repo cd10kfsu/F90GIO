@@ -24,3 +24,16 @@ export H4_LIBS="-L/Users/cda/Documents/work/libs/zlib-1.2.11-intel/lib -L/Users/
 # config for HDF5
 export H5_INCLUDE="/Users/cda/Documents/work/libs/hdf5-1.8.19-intel/include"
 export H5_LIBS="-L/Users/cda/Documents/work/libs/hdf5-1.8.19-intel/lib /Users/cda/Documents/work/libs/hdf5-1.8.19-intel/lib/libhdf5hl_fortran.a /Users/cda/Documents/work/libs/hdf5-1.8.19-intel/lib/libhdf5_hl.a /Users/cda/Documents/work/libs/hdf5-1.8.19-intel/lib/libhdf5_fortran.a /Users/cda/Documents/work/libs/hdf5-1.8.19-intel/lib/libhdf5.a -L/Users/cda/Documents/work/libs/zlib-1.2.11-intel/lib -lz -ldl -lm"
+
+
+echo "====================================="
+echo "      F90GIO configurations:"
+echo
+echo "NC_INCLUDE=$NC_INCLUDE"
+echo "NC_LIBS=$NC_LIBS"
+
+echo "H4_INCLUDE=$H4_INCLUDE"
+echo "H4_LIBS=$H4_LIBS"
+
+echo "H5_INCLUDE=$H5_INCLUDE"
+echo "H5_LIBS=$H5_LIBS"

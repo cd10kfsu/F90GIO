@@ -25,3 +25,14 @@ export NC_LIBS="-L/usr/lib/hpc/gnu7/mpich/netcdf-fortran/4.4.4/lib -lnetcdff -L/
 export H5_INCLUDE="/usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/include"
 export H5_LIBS="-L/usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64 /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5hl_fortran.a /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5_hl.a /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5_fortran.a /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5.a -lpthread -lz -ldl -lm -Wl,-rpath -Wl,/usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64"
 
+echo "====================================="
+echo "      F90GIO configurations:"
+echo
+echo "NC_INCLUDE=$NC_INCLUDE"
+echo "NC_LIBS=$NC_LIBS"
+
+echo "H4_INCLUDE=$H4_INCLUDE"
+echo "H4_LIBS=$H4_LIBS"
+
+echo "H5_INCLUDE=$H5_INCLUDE"
+echo "H5_LIBS=$H5_LIBS"
