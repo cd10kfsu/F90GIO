@@ -351,6 +351,7 @@ function H5_ReadVar3d_Real4( fileName, varName, varValue) result ( errStatus )
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_THREE), varMaxDims(MAX_RANKS)
   type(C_PTR)      :: f_ptr
+
 ! initialize fortran interface
   call h5open_f( errStatus )
   if ( errStatus .ne. SUCCEED ) then
@@ -401,7 +402,11 @@ function H5_ReadVar3d_Real4( fileName, varName, varValue) result ( errStatus )
 
 ! get the value 
   f_ptr = C_LOC( varValue(1,1,1) )
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_REAL_4, f_ptr, errStatus )
+#else
+  call h5dread_f( var_id, h5kind_to_type(r4,H5_REAL_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -453,6 +458,7 @@ function H5_ReadVar3d_Real8( fileName, varName, varValue) result ( errStatus )
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_THREE), varMaxDims(MAX_RANKS)
   type(C_PTR)      :: f_ptr
+
 ! initialize fortran interface
   call h5open_f( errStatus )
   if ( errStatus .ne. SUCCEED ) then
@@ -503,7 +509,11 @@ function H5_ReadVar3d_Real8( fileName, varName, varValue) result ( errStatus )
 
 ! get the value 
   f_ptr = C_LOC( varValue(1,1,1) )
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_REAL_8, f_ptr, errStatus )
+#else
+  call h5dread_f( var_id, h5kind_to_type(r8,H5_REAL_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -549,12 +559,13 @@ function H5_ReadVar2d_Real8( fileName, varName, varValue) result ( errStatus )
 ! input arguments
   character(*),intent(in) :: fileName
   character(*),intent(in) :: varName
-  real(r8),allocatable    :: varValue(:,:)
+  real(r8),allocatable,target    :: varValue(:,:)
   integer(i_kind)         :: errStatus
 ! local arguments
   integer(HID_T)   :: file_id, var_id, var_space_id 
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_TWO), varMaxDims(MAX_RANKS)
+  type(C_PTR)      :: f_ptr
 
 
 ! initialize fortran interface
@@ -606,7 +617,12 @@ function H5_ReadVar2d_Real8( fileName, varName, varValue) result ( errStatus )
   endif
 
 ! get the value 
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_REAL_8, varValue, varDims, errStatus )
+#else
+  f_ptr = C_LOC( varValue(1,1) )
+  call h5dread_f( var_id, h5kind_to_type(r8,H5_REAL_KIND), f_ptr, errStatus ) 
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -651,12 +667,13 @@ function H5_ReadVar2d_Real4( fileName, varName, varValue) result ( errStatus )
 ! input arguments
   character(*),intent(in) :: fileName
   character(*),intent(in) :: varName
-  real(r4),allocatable    :: varValue(:,:)
+  real(r4),allocatable,target    :: varValue(:,:)
   integer(i_kind)         :: errStatus
 ! local arguments
   integer(HID_T)   :: file_id, var_id, var_space_id 
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_TWO), varMaxDims(MAX_RANKS)
+  type(C_PTR)      :: f_ptr
 
 
 ! initialize fortran interface
@@ -708,7 +725,12 @@ function H5_ReadVar2d_Real4( fileName, varName, varValue) result ( errStatus )
   endif
 
 ! get the value 
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_REAL_4, varValue, varDims, errStatus )
+#else
+  f_ptr = C_LOC( varValue(1,1) )
+  call h5dread_f( var_id, h5kind_to_type(r4,H5_REAL_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -755,12 +777,13 @@ function H5_ReadVar2d_Integer4( fileName, varName, varValue) result ( errStatus 
 ! input arguments
   character(*),intent(in) :: fileName
   character(*),intent(in) :: varName
-  integer(i4),allocatable :: varValue(:,:)
+  integer(i4),allocatable,target :: varValue(:,:)
   integer(i_kind)         :: errStatus
 ! local arguments
   integer(HID_T)   :: file_id, var_id, var_space_id 
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_TWO), varMaxDims(MAX_RANKS)
+  type(C_PTR)      :: f_ptr
 
 
 ! initialize fortran interface
@@ -812,7 +835,12 @@ function H5_ReadVar2d_Integer4( fileName, varName, varValue) result ( errStatus 
   endif
 
 ! get the value 
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_INTEGER_4, varValue, varDims, errStatus )
+#else
+  f_ptr = C_LOC( varValue(1,1) )
+  call h5dread_f( var_id, h5kind_to_type(i4,H5_INTEGER_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -864,6 +892,7 @@ function H5_ReadVar2d_Integer8( fileName, varName, varValue) result ( errStatus 
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_TWO), varMaxDims(MAX_RANKS)
   type(C_PTR)      :: f_ptr
+
 ! initialize fortran interface
   call h5open_f( errStatus )
   if ( errStatus .ne. SUCCEED ) then
@@ -914,7 +943,11 @@ function H5_ReadVar2d_Integer8( fileName, varName, varValue) result ( errStatus 
 
 ! get the value 
   f_ptr = C_LOC( varValue(1,1) )
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_INTEGER_8, f_ptr, errStatus )
+#else
+  call h5dread_f( var_id, h5kind_to_type(i8,H5_INTEGER_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -968,6 +1001,7 @@ function H5_ReadVar1d_Integer8( fileName, varName, varValue) result ( errStatus 
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_ONE), varMaxDims(MAX_RANKS)
   type(C_PTR)      :: f_ptr
+
 ! initialize fortran interface
   call h5open_f( errStatus )
   if ( errStatus .ne. SUCCEED ) then
@@ -1018,7 +1052,11 @@ function H5_ReadVar1d_Integer8( fileName, varName, varValue) result ( errStatus 
 
 ! get the value 
   f_ptr = C_LOC( varValue(1) )
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_INTEGER_8, f_ptr, errStatus )
+#else
+  call h5dread_f( var_id, h5kind_to_type(i8,H5_INTEGER_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -1070,6 +1108,7 @@ function H5_ReadVar1d_Integer4( fileName, varName, varValue) result ( errStatus 
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_ONE), varMaxDims(MAX_RANKS)
   type(C_PTR)      :: f_ptr
+
 ! initialize fortran interface
   call h5open_f( errStatus )
   if ( errStatus .ne. SUCCEED ) then
@@ -1120,7 +1159,11 @@ function H5_ReadVar1d_Integer4( fileName, varName, varValue) result ( errStatus 
 
 ! get the value 
   f_ptr = C_LOC( varValue(1) )
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_INTEGER_4, f_ptr, errStatus )
+#else
+  call h5dread_f( var_id, h5kind_to_type(i4,H5_INTEGER_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -1173,6 +1216,7 @@ function H5_ReadVar1d_Real4( fileName, varName, varValue) result ( errStatus )
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_ONE), varMaxDims(MAX_RANKS)
   type(C_PTR)      :: f_ptr
+
 ! initialize fortran interface
   call h5open_f( errStatus )
   if ( errStatus .ne. SUCCEED ) then
@@ -1223,7 +1267,11 @@ function H5_ReadVar1d_Real4( fileName, varName, varValue) result ( errStatus )
 
 ! get the value 
   f_ptr = C_LOC( varValue(1) )
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_REAL_4, f_ptr, errStatus )
+#else
+  call h5dread_f( var_id, h5kind_to_type(r4,H5_REAL_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -1326,7 +1374,11 @@ function H5_ReadVar1d_Real8( fileName, varName, varValue) result ( errStatus )
 
 ! get the value 
   f_ptr = C_LOC( varValue(1) )
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_REAL_8, f_ptr, errStatus )
+#else
+  call h5dread_f( var_id, h5kind_to_type(r8,H5_REAL_KIND), f_ptr, errStatus )
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)
@@ -1497,6 +1549,8 @@ function H5_ReadVar2d_Integer2( fileName, varName, varValue) result ( errStatus 
   integer(HID_T)   :: file_id, var_id, var_space_id 
   integer(i_kind)  :: varRank          
   integer(HSIZE_T) :: varDims(RANK_TWO), varMaxDims(MAX_RANKS)
+  type(C_PTR)      :: f_ptr
+  integer(i2),allocatable,target :: varValue_i2(:,:)
 
 
 ! initialize fortran interface
@@ -1548,7 +1602,15 @@ function H5_ReadVar2d_Integer2( fileName, varName, varValue) result ( errStatus 
   endif
 
 ! get the value 
+#ifdef H5_VERSION_1_8
   call h5dread_f( var_id, H5T_NATIVE_INTEGER_4, varValue, varDims, errStatus )
+#else
+  allocate(varValue_i2(varDims(1),varDims(2)), stat=errStatus)
+  f_ptr = C_LOC( varValue_i2(1,1) )
+  call h5dread_f( var_id, h5kind_to_type(i2,H5_INTEGER_KIND), f_ptr, errStatus )
+  varValue(:,:) = varValue_i2(:,:)
+  deallocate(varValue_i2)
+#endif
   if ( errStatus .ne. SUCCEED ) then
      print*, "Error: fail to get the value of the var: ", TRIM(varName)
      print*, "       of the file: ", TRIM(fileName)

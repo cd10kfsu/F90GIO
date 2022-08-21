@@ -16,7 +16,9 @@ jobs:
 
     - name: "install NetCDF"
       run: |
-           sudo apt install libnetcdf-dev libnetcdff-dev netcdf-bin hdf4-tools libhdf4-dev
+           sudo apt install libnetcdf-dev libnetcdff-dev netcdf-bin 
+           sudo apt install hdf4-tools libhdf4-dev
+           sudo apt install hdf5-tools libhdf5-dev
            ulimit -s unlimited
 
     - name: "check version and envs"
@@ -27,12 +29,13 @@ jobs:
            echo "===============================" && gfortran -v
            echo "===============================" && pwd
            echo "===============================" && h4fc --version && h4fc -show test.f90
+           echo "===============================" && h5fc -showconfig && h5fc -show test.f90
            echo "===============================" && ulimit -a
 
     - name: "cmake build (build NetCDF, HDF4)"
       run: |
            source ./config/env.gnu.github.sh
-           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_Fortran_COMPILER=gfortran -DBUILD_H4=on -DBUILD_H5=off -DBUILD_NC=on -DTEST_FULL=off -DCMAKE_VERBOSE_MAKEFILE=off
+           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_Fortran_COMPILER=gfortran -DBUILD_H4=ON -DBUILD_H5=ON -DH5_VERSION_1_8=OFF -DBUILD_NC=ON -DTEST_FULL=OFF -DCMAKE_VERBOSE_MAKEFILE=OFF
            cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: "cmake test"
