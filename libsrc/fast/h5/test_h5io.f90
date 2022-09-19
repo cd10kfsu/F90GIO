@@ -7,8 +7,14 @@ program main
   integer(HID_T) :: fid
   real(4),allocatable :: r4buf2d(:,:), r4buf2d2(:,:)
   real(8),allocatable :: r8buf2d(:,:), r8buf2d2(:,:)
+
+  integer(4),allocatable :: i4buf2d(:,:)
+  integer(2),allocatable :: i2buf2d(:,:)
+
+
   integer :: nx, ny, ix, iy
   integer :: istat
+
 
 !-----------------------------------------------------------------------
 ! config
@@ -17,6 +23,8 @@ program main
   nx = 1624
   allocate(r4buf2d(nx,ny))
   allocate(r8buf2d(nx,ny))
+  allocate(i4buf2d(nx,ny))
+  allocate(i2buf2d(nx,ny))
 
   iy = 20
   ix = 1145
@@ -50,6 +58,11 @@ program main
   print*, "h5io: sum=", sum(r4buf2d)
   print*, "SHAPE(r8buf2d)=", shape(r8buf2d)
   print*, "h5io: ix, iy, val =", ix, iy, r8buf2d(ix,iy)
+
+  call h5_rdvar2d_i4(fid, "n_v_fore", i4buf2d)
+  print*, "i4buf2d(484:488,31)=", i4buf2d(484:488,31)
+  print*, "i4buf2d(484:488,32)=", i4buf2d(484:488,32)
+  print*, "i4buf2d(484:488,33)=", i4buf2d(484:488,33)
 
   call h5_close_fid(fid)
 

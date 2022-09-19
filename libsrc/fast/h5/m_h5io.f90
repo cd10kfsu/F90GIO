@@ -7,9 +7,47 @@ MODULE m_h5io
 
   PUBLIC :: HID_T ! type for all different ids used for H5
   PUBLIC :: h5_get_fid, h5_close_fid
-  PUBLIC :: h5_rdvar2d_r4
-  PUBLIC :: h5_rdvar2d_r8
 
+! read vars
+  PUBLIC :: h5_rdvar1d, h5_rdvar2d, h5_rdvar3d, h5_rdvar4d
+
+! low-level Read 1d
+  PUBLIC :: h5_rdvar1d_i1, h5_rdvar1d_i2, h5_rdvar1d_i4, &
+            h5_rdvar1d_r4, h5_rdvar1d_r8
+
+! low-level Read 2d
+  PUBLIC :: h5_rdvar2d_i1, h5_rdvar2d_i2, h5_rdvar2d_i4, &
+            h5_rdvar2d_r4, h5_rdvar2d_r8
+
+! low-level Read 3d
+  PUBLIC :: h5_rdvar3d_i1, h5_rdvar3d_i2, h5_rdvar3d_i4, &
+            h5_rdvar3d_r4, h5_rdvar3d_r8
+
+! low-level Read 4d
+  PUBLIC :: h5_rdvar4d_i1, h5_rdvar4d_i2, h5_rdvar4d_i4, &
+            h5_rdvar4d_r4, h5_rdvar4d_r8
+
+!-------------------------------------------------------------------------------
+! Internal vars & subs
+  INTERFACE h5_rdvar1d
+    MODULE PROCEDURE h5_rdvar1d_i1, h5_rdvar1d_i2, h5_rdvar1d_i4, &
+                     h5_rdvar1d_r4, h5_rdvar1d_r8
+  END INTERFACE
+
+  INTERFACE h5_rdvar2d
+    MODULE PROCEDURE h5_rdvar2d_i1, h5_rdvar2d_i2, h5_rdvar2d_i4, &
+                     h5_rdvar2d_r4, h5_rdvar2d_r8
+  END INTERFACE
+
+  INTERFACE h5_rdvar3d
+    MODULE PROCEDURE h5_rdvar3d_i1, h5_rdvar3d_i2, h5_rdvar3d_i4, &
+                     h5_rdvar3d_r4, h5_rdvar3d_r8
+  END INTERFACE
+
+  INTERFACE h5_rdvar4d
+    MODULE PROCEDURE h5_rdvar4d_i1, h5_rdvar4d_i2, h5_rdvar4d_i4, &
+                     h5_rdvar4d_r4, h5_rdvar4d_r8
+  END INTERFACE
 
   INTEGER,PARAMETER :: i1 = 1
   INTEGER,PARAMETER :: i2 = 2
@@ -104,8 +142,84 @@ SUBROUTINE h5_close_fid(fid)
 END SUBROUTINE h5_close_fid
 
 !--------------------------------------------------------------------------------
+! read 1D
+!--------------------------------------------------------------------------------
+SUBROUTINE h5_rdvar1d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i1), TARGET, INTENT(OUT) :: varval(:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar1d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i2), TARGET, INTENT(OUT) :: varval(:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar1d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i4), TARGET, INTENT(OUT) :: varval(:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar1d_r4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r4), TARGET, INTENT(OUT) :: varval(:)
+  INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar1d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r8), TARGET, INTENT(OUT) :: varval(:)
+  INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+
+!--------------------------------------------------------------------------------
 ! read 2D
 !--------------------------------------------------------------------------------
+SUBROUTINE h5_rdvar2d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i1), TARGET, INTENT(OUT) :: varval(:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar2d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i2), TARGET, INTENT(OUT) :: varval(:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar2d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i4), TARGET, INTENT(OUT) :: varval(:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
 SUBROUTINE h5_rdvar2d_r4(fid, varname, varval)
   IMPLICIT NONE
   INTEGER(HID_T),   INTENT(IN)  :: fid
@@ -124,6 +238,101 @@ SUBROUTINE h5_rdvar2d_r8(fid, varname, varval)
   include "h5_rdvar.f90.inc"
 END SUBROUTINE
 
+!--------------------------------------------------------------------------------
+! read 3D
+!--------------------------------------------------------------------------------
+SUBROUTINE h5_rdvar3d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i1), TARGET, INTENT(OUT) :: varval(:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar3d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i2), TARGET, INTENT(OUT) :: varval(:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar3d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i4), TARGET, INTENT(OUT) :: varval(:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar3d_r4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r4), TARGET, INTENT(OUT) :: varval(:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar3d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r8), TARGET, INTENT(OUT) :: varval(:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+!--------------------------------------------------------------------------------
+! read 4D
+!--------------------------------------------------------------------------------
+SUBROUTINE h5_rdvar4d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i1), TARGET, INTENT(OUT) :: varval(:,:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar4d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i2), TARGET, INTENT(OUT) :: varval(:,:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar4d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  INTEGER(i4), TARGET, INTENT(OUT) :: varval(:,:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar4d_r4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r4), TARGET, INTENT(OUT) :: varval(:,:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+SUBROUTINE h5_rdvar4d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r8), TARGET, INTENT(OUT) :: varval(:,:,:,:)
+  INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
 
 !--------------------------------------------------------------------------------
 ! utils 
