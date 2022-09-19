@@ -1,0 +1,2553 @@
+HDF5 "SMAP_L2B_SSS_36950_20220101T005200_R18240_V5.0.h5" {
+GROUP "/" {
+   ATTRIBUTE "ALONGTRACK_RESOLUTION" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 9;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "ANC_SSS_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 75;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "ANC_SST_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 74;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "ANC_SWH_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 75;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "ANC_U10_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 77;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "ANC_V10_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 77;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "CROSSTRACK_RESOLUTION" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 9;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "Conventions" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "Delta TBH Aft Ascending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Delta TBH Aft Decending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Delta TBH Fore Ascending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Delta TBH Fore Decending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Delta TBV Aft Ascending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Delta TBV Aft Decending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Delta TBV Fore Ascending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Delta TBV Fore Decending" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "L1B_TB_LORES_ASC_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 96;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "L1B_TB_LORES_DEC_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 96;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "Number of Along Track Bins" {
+      DATATYPE  H5T_STD_I32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "Number of Cross Track Bins" {
+      DATATYPE  H5T_STD_I32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "QS_ICEMAP_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 60;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "REVNO" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 6;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "REV_START_DAY_OF_YEAR" {
+      DATATYPE  H5T_STD_I32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "REV_START_TIME" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 22;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "REV_START_YEAR" {
+      DATATYPE  H5T_STD_I32LE
+      DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+   }
+   ATTRIBUTE "REV_STOP_TIME" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 22;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "TB_CRID" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 7;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "TB_FLAT_MODEL_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 52;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "TB_ROUGH_MODEL_FILE" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 104;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "cdm_data_type" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "contributor_name" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "creator_email" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "creator_name" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "date_created" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "geospatial_lat_max" {
+      DATATYPE  H5T_IEEE_F64LE
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "geospatial_lat_min" {
+      DATATYPE  H5T_IEEE_F64LE
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "geospatial_lat_units" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "geospatial_lon_max" {
+      DATATYPE  H5T_IEEE_F64LE
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "geospatial_lon_min" {
+      DATATYPE  H5T_IEEE_F64LE
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "geospatial_lon_units" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "history" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "institution" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "instrument" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "instrument_vocabulary" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "keywords" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "keywords_vocabulary" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "platform" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "processing_level" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "product_version" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "project" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "publisher_email" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "publisher_name" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "references" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "sensor" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "standard_name_vocabulary" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "time_coverage_end" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 21;
+         STRPAD H5T_STR_NULLPAD;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "time_coverage_resolution" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "time_coverage_start" {
+      DATATYPE  H5T_STRING {
+         STRSIZE 21;
+         STRPAD H5T_STR_NULLPAD;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   ATTRIBUTE "title" {
+      DATATYPE  H5T_STRING {
+         STRSIZE H5T_VARIABLE;
+         STRPAD H5T_STR_NULLTERM;
+         CSET H5T_CSET_ASCII;
+         CTYPE H5T_C_S1;
+      }
+      DATASPACE  SCALAR
+   }
+   DATASET "anc_dir" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 47;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "anc_spd" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 42;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "anc_sss" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 15;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "anc_sst" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 51;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "anc_swh" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 43;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 7;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "antazi_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 31;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 8;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "antazi_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 32;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 8;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "azi_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 28;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "azi_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 29;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "ice_concentration" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 18;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "inc_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 30;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "inc_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 31;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "land_fraction_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 35;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "land_fraction_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 36;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "lat" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 9;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "lon" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 10;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "n_h_aft" {
+      DATATYPE  H5T_STD_U8LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_STD_U8LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 49;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+   }
+   DATASET "n_h_fore" {
+      DATATYPE  H5T_STD_U8LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_STD_U8LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 50;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+   }
+   DATASET "n_v_aft" {
+      DATATYPE  H5T_STD_U8LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_STD_U8LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 49;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+   }
+   DATASET "n_v_fore" {
+      DATATYPE  H5T_STD_U8LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_STD_U8LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 50;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+   }
+   DATASET "nedt_h_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 55;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "nedt_h_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 56;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "nedt_v_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 55;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "nedt_v_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 56;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "num_ambiguities" {
+      DATATYPE  H5T_STD_U8LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_STD_U8LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 33;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+   }
+   DATASET "quality_flag" {
+      DATATYPE  H5T_STD_U16LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "QUAL_FLAG_FOUR_LOOKS" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_HIGH_SPEED_USEABLE" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_ICE" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_LAND" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_LARGE_GALAXY_CORRECTION" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_POINTING" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_ROUGHNESS_CORRECTION" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_SSS_USEABLE" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "QUAL_FLAG_SST_TOO_COLD" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_STD_U16LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 13;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+   }
+   DATASET "row_time" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 1624 ) / ( 1624 ) }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 42;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_STD_I64LE
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_ambiguity_dir" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624, 4 ) / ( 76, 1624, 4 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 50;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_ambiguity_spd" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624, 4 ) / ( 76, 1624, 4 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 46;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_high_dir" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 40;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_high_dir_smooth" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 60;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_high_spd" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 36;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_spd" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 16;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 14;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_sss" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 26;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "smap_sss_uncertainty" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 38;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 4;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "tb_h_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 55;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "tb_h_bias_adj" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 49;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 15;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "tb_h_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 56;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "tb_v_aft" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 55;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "tb_v_bias_adj" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 49;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 15;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+   DATASET "tb_v_fore" {
+      DATATYPE  H5T_IEEE_F32LE
+      DATASPACE  SIMPLE { ( 76, 1624 ) / ( 76, 1624 ) }
+      ATTRIBUTE "_FillValue" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "coordinates" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "coverage_content_type" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "long_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE 56;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "standard_name" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "units" {
+         DATATYPE  H5T_STRING {
+            STRSIZE H5T_VARIABLE;
+            STRPAD H5T_STR_NULLTERM;
+            CSET H5T_CSET_ASCII;
+            CTYPE H5T_C_S1;
+         }
+         DATASPACE  SCALAR
+      }
+      ATTRIBUTE "valid_max" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+      ATTRIBUTE "valid_min" {
+         DATATYPE  H5T_IEEE_F32LE
+         DATASPACE  SIMPLE { ( 1 ) / ( 1 ) }
+      }
+   }
+}
+}

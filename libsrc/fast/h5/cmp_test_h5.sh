@@ -11,7 +11,7 @@ H5_LIB="-L/data2/cda/model/x86_64-pc-linux-gnu/gfortran/Linux/lib /data2/cda/mod
 echo "[$0] H5_LIB=$H5_LIB"
 echo "[$0] H5_INC=$H5_INC"
 
-cmd="$FC $F90_OPT $H5_INC m_h5io.f90 test_h5io.f90 -o a.x $H5_LIB"
+cmd="$FC $F90_OPT $H5_INC -cpp m_h5io.f90 mod_f90gioh5.f90 test_h5io.f90 -o a.x $H5_LIB"
 echo 
 echo 
 echo $cmd
