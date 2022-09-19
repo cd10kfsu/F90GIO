@@ -43,8 +43,13 @@ program main
 
   call h5_rdvar2d_r4(fid, "lon", r4buf2d)
   print*, "h5io: sum=", sum(r4buf2d)
-  print*, "SHAPE(r4buf2d2)=", shape(r4buf2d)
+  print*, "SHAPE(r4buf2d)=", shape(r4buf2d)
   print*, "h5io: ix, iy, val =", ix, iy, r4buf2d(ix,iy)
+
+  call h5_rdvar2d_r8(fid, "lon", r8buf2d)
+  print*, "h5io: sum=", sum(r4buf2d)
+  print*, "SHAPE(r8buf2d)=", shape(r8buf2d)
+  print*, "h5io: ix, iy, val =", ix, iy, r8buf2d(ix,iy)
 
   call h5_close_fid(fid)
 

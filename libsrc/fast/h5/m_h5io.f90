@@ -8,6 +8,7 @@ MODULE m_h5io
   PUBLIC :: HID_T ! type for all different ids used for H5
   PUBLIC :: h5_get_fid, h5_close_fid
   PUBLIC :: h5_rdvar2d_r4
+  PUBLIC :: h5_rdvar2d_r8
 
 
   INTEGER,PARAMETER :: i1 = 1
@@ -28,11 +29,12 @@ MODULE m_h5io
     INTEGER(i1) :: fid    = 1
     INTEGER(i1) :: varid  = 2
     INTEGER(i1) :: varval = 3
-    INTEGER(i1) :: varrank = 8
     INTEGER(i1) :: attval = 4
     INTEGER(i1) :: dimid  = 5
     INTEGER(i1) :: dimval = 6
     INTEGER(i1) :: ftnapi = 7
+    INTEGER(i1) :: varrank = 8
+    INTEGER(i1) :: get_h5type = 9
     INTEGER(i1) :: undef  = 127 ! max positive for signed 8-byte int
   END TYPE
   TYPE(t_h5_errcode),SAVE,PRIVATE:: errcode
@@ -102,50 +104,59 @@ SUBROUTINE h5_close_fid(fid)
 END SUBROUTINE h5_close_fid
 
 !--------------------------------------------------------------------------------
-! read var
+! read 2D
 !--------------------------------------------------------------------------------
 SUBROUTINE h5_rdvar2d_r4(fid, varname, varval)
   IMPLICIT NONE
-
-  INTEGER(HID_T),INTENT(IN) :: fid
-  CHARACTER(*),  INTENT(IN) :: varname
-  REAL(r4), INTENT(INOUT),TARGET :: varval(:,:)
-
-  INTEGER(i4) :: myio_kind = r4               ! h5kind_typ_type requires INTEGER(4) as input
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r4), TARGET, INTENT(OUT) :: varval(:,:)
   INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
-
-  INTEGER(HID_T) :: varid, vspaceid
-  INTEGER(i4)    :: istat
-  TYPE(c_ptr) :: varptr, varptr2
-
-
-! open dataset
-  call h5dopen_f(fid, trim(varname), varid, istat)
-  if (istat /= SUCCEED) then
-     write(lout_log,*) "[h5_rdvar*d]: cannot get var id for fid, varname=", &
-                       fid, trim(varname)
-     call mystop(errcode%varid)
-  end if
-
-  varptr = C_LOC(varval(1,1))
-  varptr2 = C_LOC(varval)
-  print*, "varptr, varptr2, same=",varptr, varptr2, c_associated(varptr, varptr2)
-  call h5dread_f(varid, h5kind_to_type(myio_kind, h5io_kind), varptr, istat)
-  if (istat /= SUCCEED) then
-     write(lout_log,*) "[h5_rdvar*d]: cannot get var value for fid, varname, varid=", &
-                       fid, trim(varname), varid
-     call mystop(errcode%varval)
-  end if
-
-! close dataset
-  call h5dclose_f(varid, istat)
-  if (istat /= SUCCEED) then
-     write(lout_log,*) "[h5_rdvar*d]: cannot close var id for fid, varname, varid=", &
-                       fid, trim(varname), varid
-     call mystop(errcode%varid)
-  end if
-
+  include "h5_rdvar.f90.inc"
 END SUBROUTINE
+
+SUBROUTINE h5_rdvar2d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(HID_T),   INTENT(IN)  :: fid
+  CHARACTER(*),     INTENT(IN)  :: varname
+  REAL(r8), TARGET, INTENT(OUT) :: varval(:,:)
+  INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdvar.f90.inc"
+END SUBROUTINE
+
+
+!--------------------------------------------------------------------------------
+! utils 
+!--------------------------------------------------------------------------------
+! Returns either H5_REAL_KIND or H5_INTEGER_KIND
+!
+! reference:
+! https://stackoverflow.com/questions/2560182/determining-variable-type-in-fortran
+!
+FUNCTION get_h5type(ptr) RESULT(h5type)
+  IMPLICIT NONE
+  CLASS(*),POINTER,INTENT(IN) :: ptr
+  INTEGER(i4) :: h5type
+
+  select type(ptr)
+    type is (integer(i1))
+      h5type = H5_INTEGER_KIND
+    type is (integer(i2))
+      h5type = H5_INTEGER_KIND
+    type is (integer(i4))
+      h5type = H5_INTEGER_KIND
+    type is (integer(i8))
+      h5type = H5_INTEGER_KIND
+    type is (real(r4))
+      h5type = H5_REAL_KIND
+    type is (real(r8))
+      h5type = H5_REAL_KIND
+    class default
+      write(lout_log,*) "[err] get_h5type: type not implemented in func::get_h5type"
+      call mystop(errcode%get_h5type)
+  end select
+END FUNCTION
+
 
 END MODULE m_h5io
 
