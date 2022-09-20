@@ -17,7 +17,7 @@ program main
   integer(4),allocatable :: i4buf2d(:,:)
   integer(2),allocatable :: i2buf2d(:,:)
 
-
+  integer(HSIZE_T), allocatable :: varsize(:)
   integer :: nx, ny, ix, iy
   integer :: istat
 
@@ -55,39 +55,34 @@ program main
   call h5_get_fid(trim(fnin), fid)
   print*, "h5io: fid=", fid
 
-  call h5_rdvar2d_r4(fid, "lon", r4buf2d)
-  print*, "h5io: sum=", sum(r4buf2d)
-  print*, "SHAPE(r4buf2d)=", shape(r4buf2d)
-  print*, "h5io: ix, iy, val =", ix, iy, r4buf2d(ix,iy)
+  !call h5_rdvar2d_r4(fid, "lon", r4buf2d)
+  !print*, "h5io: sum=", sum(r4buf2d)
+  !print*, "SHAPE(r4buf2d)=", shape(r4buf2d)
+  !print*, "h5io: ix, iy, val =", ix, iy, r4buf2d(ix,iy)
 
-  call h5_rdvar2d_r8(fid, "lon", r8buf2d)
-  print*, "h5io: sum=", sum(r4buf2d)
-  print*, "SHAPE(r8buf2d)=", shape(r8buf2d)
-  print*, "h5io: ix, iy, val =", ix, iy, r8buf2d(ix,iy)
+  !call h5_rdvar2d_r8(fid, "lon", r8buf2d)
+  !print*, "h5io: sum=", sum(r4buf2d)
+  !print*, "SHAPE(r8buf2d)=", shape(r8buf2d)
+  !print*, "h5io: ix, iy, val =", ix, iy, r8buf2d(ix,iy)
 
-  call h5_rdvar2d_i4(fid, "n_v_fore", i4buf2d)
-  print*, "i4buf2d(484:488,31)=", i4buf2d(484:488,31)
-  print*, "i4buf2d(484:488,32)=", i4buf2d(484:488,32)
-  print*, "i4buf2d(484:488,33)=", i4buf2d(484:488,33)
+  !call h5_rdvar2d_i4(fid, "n_v_fore", i4buf2d)
+  !print*, "i4buf2d(484:488,31)=", i4buf2d(484:488,31)
+  !print*, "i4buf2d(484:488,32)=", i4buf2d(484:488,32)
+  !print*, "i4buf2d(484:488,33)=", i4buf2d(484:488,33)
 
-  call h5_rdatt_i4(fid, "quality_flag", "_FillValue", i4buf)
-  print*, "attval=", i4buf
+  !call h5_rdatt_i4(fid, "quality_flag", "_FillValue", i4buf)
+  !print*, "attval=", i4buf
+  !call h5_rdatt_i4(fid, "quality_flag", "QUAL_FLAG_HIGH_SPEED_USEABLE", i4buf)
+  !print*, "attval=", i4buf
+  !call h5_rdatt_r4(fid, ".", "Delta TBV Fore Ascending", r4buf)
+  !print*, "attval=", r4buf
+  !call h5_rdatt_r8(fid, ".", "Delta TBV Fore Ascending", r8buf)
+  !print*, "attval=", r8buf
+  !call h5_rdatt_r8(fid, ".", "geospatial_lon_min", r8buf)
+  !print*, "attval=", r8buf
 
-  call h5_rdatt_i4(fid, "quality_flag", "QUAL_FLAG_HIGH_SPEED_USEABLE", i4buf)
-  print*, "attval=", i4buf
-
-  call h5_rdatt_r4(fid, ".", "Delta TBV Fore Ascending", r4buf)
-  print*, "attval=", r4buf
-
-  call h5_rdatt_r8(fid, ".", "Delta TBV Fore Ascending", r8buf)
-  print*, "attval=", r8buf
-
-  call h5_rdatt_r8(fid, ".", "geospatial_lon_min", r8buf)
-  print*, "attval=", r8buf
-
-!  call h5_rdatt_str(fid, ".", "TB_ROUGH_MODEL_FILE", str)
-!  print*, "attval=", str
-
+  call h5_rdvarshp(fid, "lon", varsize)
+  print*, "size=", varsize
 
   call h5_close_fid(fid)
 

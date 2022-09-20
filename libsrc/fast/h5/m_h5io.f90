@@ -5,14 +5,20 @@ MODULE m_h5io
 
   PRIVATE
 
-  PUBLIC :: HID_T ! type for all different ids used for H5
+  PUBLIC :: HID_T   ! type for all different ids used for H5
+  PUBLIC :: HSIZE_T ! type for var sizes 
+
+! file I/O
   PUBLIC :: h5_get_fid, h5_close_fid
+
+! read var shape
+  PUBLIC :: h5_rdvarshp
 
 ! read att
   PUBLIC :: h5_rdatt_i1, h5_rdatt_i2, h5_rdatt_i4, &
             h5_rdatt_r4, h5_rdatt_r8
 
-! read vars
+! read var values
   PUBLIC :: h5_rdvar1d, h5_rdvar2d, h5_rdvar3d, h5_rdvar4d
 
 ! low-level Read 1d
@@ -76,13 +82,13 @@ MODULE m_h5io
     INTEGER(i1) :: fid    = 1
     INTEGER(i1) :: varid  = 2
     INTEGER(i1) :: varval = 3
-    INTEGER(i1) :: attid  = 10
-    INTEGER(i1) :: attval = 4
-    INTEGER(i1) :: dimid  = 5
-    INTEGER(i1) :: dimval = 6
-    INTEGER(i1) :: ftnapi = 7
-    INTEGER(i1) :: varrank = 8
-    INTEGER(i1) :: get_h5type = 9
+    INTEGER(i1) :: vspaceid = 4
+    INTEGER(i1) :: varndims = 5
+    INTEGER(i1) :: varshp = 6
+    INTEGER(i1) :: attid  = 7
+    INTEGER(i1) :: attval = 8
+    INTEGER(i1) :: ftnapi = 9
+    INTEGER(i1) :: get_h5type = 10
     INTEGER(i1) :: undef  = 127 ! max positive for signed 8-byte int
   END TYPE
   TYPE(t_h5_errcode),SAVE,PRIVATE:: errcode
@@ -391,6 +397,65 @@ SUBROUTINE h5_rdatt_r8(fid, varname, attname, attval)
   INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
   include "h5_rdatt.f90.inc"
 END SUBROUTINE 
+
+!--------------------------------------------------------------------------------
+! read var shape
+!--------------------------------------------------------------------------------
+SUBROUTINE h5_rdvarshp(fid, varname, dimval)
+  IMPLICIT NONE
+  INTEGER(HID_T),INTENT(IN) :: fid
+  CHARACTER(*),  INTENT(IN) :: varname
+  INTEGER(HSIZE_T),ALLOCATABLE,INTENT(INOUT) :: dimval(:)
+
+  INTEGER,PARAMETER :: MAX_NDIMS=5
+  INTEGER(HID_T) :: varid, vspaceid
+  INTEGER(HSIZE_T) :: maxdimval(MAX_NDIMS)
+  INTEGER(i4)    :: ndims, istat
+
+! open dataset
+  call h5dopen_f(fid, trim(varname), varid, istat)
+  if (istat /= SUCCEED) then
+     write(lout_log,*) "[err] h5_rdvarshp: cannot get var id for fid, varname=", &
+                       fid, trim(varname)
+     call mystop(errcode%varid)
+  end if
+
+! open dataspace
+  call h5dget_space_f(varid, vspaceid, istat)
+  if (istat /= SUCCEED) then
+     write(lout_log,*) "[err] h5_rdvarshp: cannot get var dataspace id for fid, varname=", &
+                       fid, trim(varname)
+     call mystop(errcode%vspaceid)
+  end if
+
+! get the var dim
+  call h5sget_simple_extent_ndims_f(vspaceid, ndims, istat)
+  if (istat /= SUCCEED) then
+     write(lout_log,*) "[err] h5_rdvarshp: cannot get dim of var for fid, varname=", &
+                       fid, trim(varname)
+     call mystop(errcode%varndims)
+  end if
+  if (allocated(dimval)) then
+     write(lout_log,*) "[warn] h5_rdvarshp: reallocatedimval(",ndims,")"
+     deallocate(dimval)
+  end if
+  allocate(dimval(ndims))
+
+! get the var shape
+  call h5sget_simple_extent_dims_f(vspaceid, dimval, maxdimval, istat)
+  if (istat /= ndims) then ! only istat=-1 means failure for the above subs
+     write(lout_log,*) "[err] h5_rdvarshp: cannot get var shape for fid, varname=", &
+                       fid, trim(varname)
+     istat = FAIL
+     call mystop(errcode%varshp)
+  end if
+
+! close dataspace
+  call h5sclose_f(vspaceid, istat)
+! close dataset
+  call h5dclose_f(varid, istat)
+
+END SUBROUTINE
 
 !--------------------------------------------------------------------------------
 ! utils 
