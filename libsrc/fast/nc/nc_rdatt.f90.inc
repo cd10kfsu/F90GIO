@@ -1,6 +1,6 @@
   INTEGER(i4) :: varid, istat
 
-  if (len_trim(varname).EQ.0) then
+  if (len_trim(varname).EQ.0 .or. trim(varname).EQ.".") then
      varid = NF90_GLOBAL
   else
      istat = NF90_INQ_VARID(fid, trim(varname), varid)

@@ -5,6 +5,9 @@ program main
 
   character(256) :: fnin
   integer(HID_T) :: fid
+  integer(2) :: i2buf
+  integer(4) :: i4buf
+  integer(8) :: i8buf
   real(4),allocatable :: r4buf2d(:,:), r4buf2d2(:,:)
   real(8),allocatable :: r8buf2d(:,:), r8buf2d2(:,:)
 
@@ -63,6 +66,12 @@ program main
   print*, "i4buf2d(484:488,31)=", i4buf2d(484:488,31)
   print*, "i4buf2d(484:488,32)=", i4buf2d(484:488,32)
   print*, "i4buf2d(484:488,33)=", i4buf2d(484:488,33)
+
+  call h5_rdatt_i4(fid, "quality_flag", "_FillValue", i4buf)
+  print*, "attval=", i4buf
+
+  call h5_rdatt_i4(fid, "quality_flag", "QUAL_FLAG_HIGH_SPEED_USEABLE", i4buf)
+  print*, "attval=", i4buf
 
   call h5_close_fid(fid)
 

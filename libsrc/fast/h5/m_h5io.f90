@@ -8,6 +8,9 @@ MODULE m_h5io
   PUBLIC :: HID_T ! type for all different ids used for H5
   PUBLIC :: h5_get_fid, h5_close_fid
 
+! read att
+  PUBLIC :: h5_rdatt_i4
+
 ! read vars
   PUBLIC :: h5_rdvar1d, h5_rdvar2d, h5_rdvar3d, h5_rdvar4d
 
@@ -67,6 +70,7 @@ MODULE m_h5io
     INTEGER(i1) :: fid    = 1
     INTEGER(i1) :: varid  = 2
     INTEGER(i1) :: varval = 3
+    INTEGER(i1) :: attid  = 10
     INTEGER(i1) :: attval = 4
     INTEGER(i1) :: dimid  = 5
     INTEGER(i1) :: dimval = 6
@@ -333,6 +337,18 @@ SUBROUTINE h5_rdvar4d_r8(fid, varname, varval)
   INTEGER(i4) :: h5io_kind = H5_REAL_KIND     ! h5kind_typ_type requires INTEGER(4) as input
   include "h5_rdvar.f90.inc"
 END SUBROUTINE
+
+!--------------------------------------------------------------------------------
+! read attribute
+!--------------------------------------------------------------------------------
+SUBROUTINE h5_rdatt_i4(fid, varname, attname, attval)
+  IMPLICIT NONE
+  INTEGER(HID_T),    INTENT(IN) :: fid
+  CHARACTER(*),      INTENT(IN) :: varname, attname
+  INTEGER(i4),TARGET,INTENT(OUT) :: attval
+  INTEGER(i4) :: h5io_kind = H5_INTEGER_KIND     ! h5kind_typ_type requires INTEGER(4) as input
+  include "h5_rdatt.f90.inc"
+END SUBROUTINE 
 
 !--------------------------------------------------------------------------------
 ! utils 
