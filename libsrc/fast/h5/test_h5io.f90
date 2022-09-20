@@ -4,10 +4,13 @@ program main
   implicit none
 
   character(256) :: fnin
+  character(len=1) :: str(256)
   integer(HID_T) :: fid
   integer(2) :: i2buf
   integer(4) :: i4buf
   integer(8) :: i8buf
+  real(4) :: r4buf
+  real(8) :: r8buf
   real(4),allocatable :: r4buf2d(:,:), r4buf2d2(:,:)
   real(8),allocatable :: r8buf2d(:,:), r8buf2d2(:,:)
 
@@ -72,6 +75,19 @@ program main
 
   call h5_rdatt_i4(fid, "quality_flag", "QUAL_FLAG_HIGH_SPEED_USEABLE", i4buf)
   print*, "attval=", i4buf
+
+  call h5_rdatt_r4(fid, ".", "Delta TBV Fore Ascending", r4buf)
+  print*, "attval=", r4buf
+
+  call h5_rdatt_r8(fid, ".", "Delta TBV Fore Ascending", r8buf)
+  print*, "attval=", r8buf
+
+  call h5_rdatt_r8(fid, ".", "geospatial_lon_min", r8buf)
+  print*, "attval=", r8buf
+
+!  call h5_rdatt_str(fid, ".", "TB_ROUGH_MODEL_FILE", str)
+!  print*, "attval=", str
+
 
   call h5_close_fid(fid)
 
