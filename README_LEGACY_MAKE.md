@@ -22,16 +22,10 @@ please acknowledge it in your acknowledgement section in your papers if
 possible. Thanks!
 
 
-## Major changes
-1. Add fast I/O libs for NetCDF and H5 files: `ncio` and `h5io` libs
-   remove lots of checks in F90GIO, and reduce the times of open/close
-   files.
+I. Install NetCDF/HDF4/HDF5 library
 
-
-## Install NetCDF/HDF4/HDF5 library
-
-1. For installing HDF4, if you'd like to use my netcdf & hdf4 module 
-   simultenously, you need to disable the netcdf-I/O capability:
+1. For installing HDF4, if you'd like to use my netcdf & hdf4 module simultenously, you need
+   to disable the netcdf-I/O capability:
    ```
        --disable-netcdf
    ```
@@ -48,47 +42,45 @@ possible. Thanks!
    ```
        --enable-fortran --enable-fotran2003
    ```
-   other general flags when configuring the HDF5 can be found in the 
-   directory of `~/release_docs` of the official source code package or 
-   see this file online
+   other general flags when configuring the HDF5 can be found in the directory of
+   `~/release_docs` of the official source code package or see this file online
    (http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/release_docs/INSTALL)
 
-## Install F90GIO library
+II. Install F90GIO library
 
-"make all" in the current directory, and a directory "build" will be created here. The libs and includes will be under "build/libs" and "build/include".
-
-config/env.sh sets the required environmental vars used by CMAKE.
-
-1. To turn off specific lib, you can modify Makefile at the current directory as:
-   - turn off hdf4
-     ```
-     mkdir build
-     . config/env.sh; cd build; cmake -DBUILD_H4=off ..; make; make test
-     ```
-
-   - turn off netcdf
-     ```
-     mkdir build
-     . config/env.sh; cd build; cmake -DBUILD_NC=off ..; make; make test
-     ```
-
-   - turn off hdf5 by
-     ```
-     mkdir build
-     . config/env.sh; cd build; cmake -DBUILD_H5=off ..; make; make test
-     ```
-
-2. for hdf5 libs, if you are using hdf5 libs with major version <= 1.8
-   add the `H5_VERSION_1_8=ON` when running cmake
-    ```
-    mkdir build
-    . config/env.sh; cd build; cmake -DBUILD_H5=on -DH5_VERSION_1_8=ON ..; make; make test
-    ```
-
-3. install Fast I/O libs (currently support NC and HDF5)
+1. For the first step, you need to modify the compiling environment in the file:
    ```
-   mkdir build
-   . config/env.sh; cd build
-   cmake .. -DBUILD_NC=ON -DBUILD_H5=on -DH5_VERSION_1_8=ON -DBUILD_FAST_IO=ON
-   make; make test
+        makefile.config
    ```
+2. If you want to install the whole F90GIO library, you can go to the src/, and
+   type:
+   ```
+        make all
+        make install
+   ```
+   Then go to the directory `test/`, run
+   ```  
+        make all
+   ```
+   you will find several .exe excutables. Run these excuatables and compare their
+   results with `*.results_correct`
+
+3. F90GIO also supports to build the library alone. For example, if you only want
+   to build netcdf library, just to to the `src/`, and type:
+   ```   
+        make netcdf
+        make install-netcdf
+   ```
+   Then go to the directory `test/`, run
+   ```
+         make test-netcdf
+   ```
+4. Someone may also want to compile those files directly with their own files 
+   instead of building libs. This is also possible. Go to the `test-nolib/` and
+   run:
+   ```
+         make test-netcdf
+   ```
+   as an example. You can check `*.bsh` files to see how to use them.
+
+
