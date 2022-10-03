@@ -29,6 +29,8 @@ export H4_LIBS=`h4fc -show TESTSRC | awk -F"TESTSRC " '{print $2}'`
 
 
 # config for HDF5
+export H5_INCLUDE="/usr/include/hdf5/serial"
+export H5_LIBS="-L/usr/lib/x86_64-linux-gnu/hdf5/serial /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5hl_fortran.a /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5_hl.a /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5_fortran.a /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.a -lcrypto -lcurl -lpthread -lsz -lz -ldl -lm -Wl,-rpath -Wl,/usr/lib/x86_64-linux-gnu/hdf5/serial"
 #export H5_INCLUDE="/usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/include"
 #export H5_LIBS="-L/usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64 /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5hl_fortran.a /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5_hl.a /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5_fortran.a /usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64/libhdf5.a -lpthread -lz -ldl -lm -Wl,-rpath -Wl,/usr/lib/hpc/gnu7/mpich/hdf5/1.10.1/lib64"
 

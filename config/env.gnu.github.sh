@@ -22,7 +22,7 @@ export H4_LIBS=`h4fc -show TESTSRC | awk -F"TESTSRC " '{print $2}'`
 
 
 # config for HDF5
-export H5_INCLUDE=`h5fc -show TESTSRC | awk -F"TESTSRC" '{print $1}' | awk -F"-I" '{print $2}'`
+export H5_INCLUDE=`h5fc -show TESTSRC | awk -F"TESTSRC" '{print $1}' | awk -F"-I" '{print $2}'|cut -d " " -f 1`
 #"/opt/homebrew/Cellar/hdf5/1.13.0/include"
 export H5_LIBS=`h5fc -show TESTSRC | awk -F"TESTSRC " '{print $2}'`
 #"-L/opt/homebrew/Cellar/hdf5/1.13.0/lib /opt/homebrew/Cellar/hdf5/1.13.0/lib/libhdf5hl_fortran.a /opt/homebrew/Cellar/hdf5/1.13.0/lib/libhdf5_hl.a /opt/homebrew/Cellar/hdf5/1.13.0/lib/libhdf5_fortran.a /opt/homebrew/Cellar/hdf5/1.13.0/lib/libhdf5.a -L/opt/homebrew/opt/szip/lib -lsz -lz -ldl -lm"

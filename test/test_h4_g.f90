@@ -20,6 +20,7 @@ program test_h4
   Use mod_f90gio
   Implicit None
 
+  Character(256)         :: file_name
   Character(256)         :: var_name
   Integer(4),allocatable :: var_val(:), var2_val(:)
   Character(256)         :: attr_name
@@ -30,6 +31,9 @@ program test_h4
   Integer(4)             :: ios
   logical                :: lpass(2) = .true.
 
+  !call get_command_argument(1,file_name)
+  file_name="testdata_h4.hdf"
+  Write(*,*) "file_name=",trim(file_name)
 
   var_name  = "longitude"
   nx = 10
@@ -42,21 +46,24 @@ program test_h4
   attr_val  = "degreeNorth"
 
 ! write data into hdf4 file 
-  ios = H4_CreateEmptyFile( "hdf4_testdata.hdf" )
-  ios = H4_WriteSDS1d( "hdf4_testdata.hdf", TRIM(var_name), var_val )  
-  ios = H4_WriteSDSAttr1d( "hdf4_testdata.hdf",TRIM(var_name), &
+  ios = H4_CreateEmptyFile( TRIM(file_name) )
+  ios = H4_WriteSDS1d( TRIM(file_name), TRIM(var_name), var_val )  
+  ios = H4_WriteSDSAttr1d( TRIM(file_name),TRIM(var_name), &
                        TRIM(attr_name), TRIM(attr_val) )
 
 ! get data info from hdf4 file
-  Call H4_InquireSDSInfo( "hdf4_testdata.hdf", TRIM(var_name) )
+  Call H4_InquireSDSInfo( TRIM(file_name), TRIM(var_name) )
 
 ! get data from hdf4 file
-  ios = H4_ReadSDS1d( "hdf4_testdata.hdf", TRIM(var_name), var2_val )
-  ios = H4_ReadSDSAttr1d( "hdf4_testdata.hdf", TRIM(var_name), &
+  ios = H4_ReadSDS1d( TRIM(file_name), TRIM(var_name), var2_val )
+  ios = H4_ReadSDSAttr1d( TRIM(file_name), TRIM(var_name), &
                           TRIM(attr_name), attr2_val )
 
   if (any(var_val/=var2_val)) lpass(1) = .false.
   if (any(shape(var_val)/=shape(var2_val))) lpass(2) = .false.
+
+  open(unit=10, iostat=ios, file=trim(file_name), status='old')
+  if (ios==0) close(10,status="delete")
   
   if (any(.not.lpass)) then
 
