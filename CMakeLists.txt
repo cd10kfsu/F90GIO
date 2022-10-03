@@ -15,6 +15,7 @@ endif()
 option(BUILD_NC "build f90gionc" ON)
 option(BUILD_H4 "build f90gioh4" OFF)
 option(BUILD_H5 "build f90gioh5" OFF)
+option(BUILD_FAST_IO "build fast io libs" ON)
 
 option(H5_VERSION_1_8 "H5LIB <=1.8" OFF)
 
@@ -51,9 +52,11 @@ if (BUILD_NC)
     if (DEFINED ENV{NC_INCLUDE} AND DEFINED ENV{NC_LIBS} )
         set(HAS_NC TRUE)
         set(FPPS_FLAGS ${FPPS_FLAGS} HAS_NC)
+        set(F90GIO_LIBS ${F90GIO_LIBS} $ENV{NC_LIBS})
 	    message("${MsgStart} will build f90gionc ${MsgEnd}")
 	    message("NC_INCLUDE= $ENV{NC_INCLUDE}")
 	    message("NC_LIBS= $ENV{NC_LIBS}")
+        message("F90GIO_LIBS=${F90GIO_LIBS}")
     else()
         set(HAS_NC FALSE)
 	    message("${MsgStart} BUILD_NC=ON but NC_INCLUDE, NC_LIBS not set ${MsgEnd}")
@@ -66,6 +69,7 @@ if (BUILD_H4)
     if (DEFINED ENV{H4_INCLUDE} AND DEFINED ENV{H4_LIBS} )
         set(HAS_H4 TRUE)
         set(FPPS_FLAGS ${FPPS_FLAGS} HAS_H4)
+        set(F90GIO_LIBS ${F90GIO_LIBS} $ENV{H4_LIBS})
 	    message("${MsgStart} will build f90gioh4 ${MsgEnd}")
 	    message("H4_INCLUDE= $ENV{H4_INCLUDE}")
 	    message("H4_LIBS= $ENV{H4_LIBS}")
@@ -87,6 +91,7 @@ if (BUILD_H5)
         else()
             message(WARNING "H5_VERSION_1_8=${H5_VERSION_1_8}, make sure your hdf5 lib has version >=1.10")
         endif()
+        set(F90GIO_LIBS ${F90GIO_LIBS} $ENV{H5_LIBS})
 	    message("${MsgStart} will build f90gioh5 ${MsgEnd}")
 	    message("H5_INCLUDE= $ENV{H5_INCLUDE}")
 	    message("H5_LIBS= $ENV{H5_LIBS}")
@@ -98,41 +103,23 @@ if (BUILD_H5)
 endif()
 
 
-# build f90gionc
-if (HAS_NC) 
-	include_directories($ENV{NC_INCLUDE})
-	add_library(f90gionc
-	libsrc/mod_f90gionc.f90)
-
-    set(F90GIO_SRCS ${F90GIO_SRCS} libsrc/mod_f90gionc.f90)
-    set(F90GIO_LIBS ${F90GIO_LIBS} $ENV{NC_LIBS})
+# build f90gio lib
+if (HAS_NC OR HAS_H4 OR HAS_H5) 
+   add_subdirectory(libsrc)
 endif()
 
-# build f90gioh4
-if (HAS_H4)
-    include_directories($ENV{H4_INCLUDE})
-    add_library(f90gioh4
-    libsrc/mod_f90gioh4.f90)
+# build fast i/o lib
+if (BUILD_FAST_IO)
+   if (HAS_NC) 
+      add_subdirectory(libsrc/fast/nc)
+   endif()
 
-    set(F90GIO_SRCS ${F90GIO_SRCS} libsrc/mod_f90gioh4.f90)
-    set(F90GIO_LIBS ${F90GIO_LIBS} $ENV{H4_LIBS})
+   if (HAS_H5)
+      add_subdirectory(libsrc/fast/h5)
+   endif()
 endif()
 
-# build f90gioh5
-if (HAS_H5)
-	include_directories($ENV{H5_INCLUDE})
-    add_library(f90gioh5
-	libsrc/mod_f90gioh5.f90)
-
-    set(F90GIO_SRCS ${F90GIO_SRCS} libsrc/mod_f90gioh5.f90)
-    set(F90GIO_LIBS ${F90GIO_LIBS} $ENV{H5_LIBS})
-endif()
-
-# build f90gio
-add_library(f90gio ${F90GIO_SRCS} libsrc/mod_f90gio.f90)
-target_compile_definitions(f90gio PRIVATE ${FPPS_FLAGS})
-#add_compile_definitions(${FPPS_FLAGS})
-
+add_subdirectory(test-fast)
 
 # testing
 enable_testing()
@@ -192,6 +179,7 @@ if (HAS_NC)
     set(TESTSRC libsrc/mod_f90gionc.f90 test/test_nc.f90)
     set(TESTLIBS $ENV{NC_LIBS})
     add_executable(${EXE} ${TESTSRC})
+    target_include_directories(${EXE} PRIVATE $<BUILD_INTERFACE:$ENV{NC_INCLUDE}>)
     target_link_libraries(${EXE} ${TESTLIBS})
     set_target_properties(${EXE} 
        PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test-nolib)
@@ -226,37 +214,38 @@ if (HAS_H4)
 
     if (TEST_FULL) 
 
-    set(EXE test_h4_g)
-    set(TESTSRC test/test_h4_g.f90)
-    set(TESTLIBS f90gio ${F90GIO_LIBS})
-    add_executable(${EXE} ${TESTSRC})
-    target_include_directories(${EXE} PUBLIC $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>)
-    target_link_libraries(${EXE} ${TESTLIBS})
-    set_target_properties(${EXE} 
-        PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test)
-    add_test(
-        NAME ${EXE} 
-        COMMAND ${EXE}
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
-    set_tests_properties(${EXE} 
-        PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
+        set(EXE test_h4_g)
+        set(TESTSRC test/test_h4_g.f90)
+        set(TESTLIBS f90gio ${F90GIO_LIBS})
+        add_executable(${EXE} ${TESTSRC})
+        target_include_directories(${EXE} PUBLIC $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>)
+        target_link_libraries(${EXE} ${TESTLIBS})
+        set_target_properties(${EXE} 
+            PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test)
+        add_test(
+            NAME ${EXE} 
+            COMMAND ${EXE}
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
+        set_tests_properties(${EXE} 
+            PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
 
 
-    set(EXE test_h4_nolib)
-    set(TESTSRC libsrc/mod_f90gioh4.f90 test/test_h4.f90)
-    set(TESTLIBS $ENV{H4_LIBS})
-    add_executable(${EXE} ${TESTSRC})
-    target_link_libraries(${EXE} ${TESTLIBS})
-    set_target_properties(${EXE} 
-        PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test-nolib)
-    add_test(
-        NAME ${EXE} 
-        COMMAND ${EXE}
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
-    set_tests_properties(${EXE} 
-        PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
+        set(EXE test_h4_nolib)
+        set(TESTSRC libsrc/mod_f90gioh4.f90 test/test_h4.f90)
+        set(TESTLIBS $ENV{H4_LIBS})
+        add_executable(${EXE} ${TESTSRC})
+        target_include_directories(${EXE} PRIVATE $<BUILD_INTERFACE:$ENV{H4_INCLUDE}>)
+        target_link_libraries(${EXE} ${TESTLIBS})
+        set_target_properties(${EXE} 
+            PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test-nolib)
+        add_test(
+            NAME ${EXE} 
+            COMMAND ${EXE}
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
+        set_tests_properties(${EXE} 
+            PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
 
-    endif()
+   endif()
 
 endif()
 
@@ -300,6 +289,7 @@ if (HAS_H5)
     set(TESTSRC libsrc/mod_f90gioh5.f90 test/test_h5.f90)
     set(TESTLIBS $ENV{H5_LIBS})
     add_executable(${EXE} ${TESTSRC})
+    target_include_directories(${EXE} PRIVATE $<BUILD_INTERFACE:$ENV{H5_INCLUDE}>)
     target_link_libraries(${EXE} ${TESTLIBS})
     set_target_properties(${EXE} 
         PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test-nolib)
@@ -310,5 +300,25 @@ if (HAS_H5)
     set_tests_properties(${EXE} 
         PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
 
+endif()
+
+if (BUILD_FAST_IO AND HAS_NC)
+    set (EXE test_ncio)
+    add_test(
+        NAME ${EXE}
+        COMMAND ${EXE}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test-fast)
+    set_tests_properties(${EXE}
+        PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
+endif()
+
+if (BUILD_FAST_IO AND HAS_H5)
+    set (EXE test_h5io)
+    add_test(
+        NAME ${EXE}
+        COMMAND ${EXE}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test-fast)
+    set_tests_properties(${EXE}
+        PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")
 endif()
 

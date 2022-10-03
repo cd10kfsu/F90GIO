@@ -8,18 +8,24 @@ MODULE m_h5io
   PUBLIC :: HID_T   ! type for all different ids used for H5
   PUBLIC :: HSIZE_T ! type for var sizes 
 
+  PUBLIC :: i1, i2, i4, i8
+  PUBLIC :: r4, r8
+
 ! file I/O
   PUBLIC :: h5_get_fid, h5_close_fid
 
 ! read var shape
   PUBLIC :: h5_rdvarshp
 
-! read att
-  PUBLIC :: h5_rdatt_i1, h5_rdatt_i2, h5_rdatt_i4, &
-            h5_rdatt_r4, h5_rdatt_r8
+! read att values
+  PUBLIC :: h5_rdatt
 
 ! read var values
   PUBLIC :: h5_rdvar1d, h5_rdvar2d, h5_rdvar3d, h5_rdvar4d
+
+! low-level read att
+  PUBLIC :: h5_rdatt_i1, h5_rdatt_i2, h5_rdatt_i4, &
+            h5_rdatt_r4, h5_rdatt_r8
 
 ! low-level Read 1d
   PUBLIC :: h5_rdvar1d_i1, h5_rdvar1d_i2, h5_rdvar1d_i4, &
@@ -39,7 +45,7 @@ MODULE m_h5io
 
 !-------------------------------------------------------------------------------
 ! Internal vars & subs
-  INTERFACE h5_rdatt1d
+  INTERFACE h5_rdatt
     MODULE PROCEDURE h5_rdatt_i1, h5_rdatt_i2, h5_rdatt_i4, &
                      h5_rdatt_r4, h5_rdatt_r8
   END INTERFACE
@@ -488,7 +494,6 @@ FUNCTION get_h5type(ptr) RESULT(h5type)
       call mystop(errcode%get_h5type)
   end select
 END FUNCTION
-
 
 END MODULE m_h5io
 
