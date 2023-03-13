@@ -1,4 +1,5 @@
 #  F90GIO Release v2.0
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7729468.svg)](https://doi.org/10.5281/zenodo.7729468)
 [![build_gfortran](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml/badge.svg)](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml)
 
 Author: Da,Cheng     Email: cda@umd.edu
