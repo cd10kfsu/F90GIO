@@ -1,7 +1,8 @@
 #  F90GIO Release v2.0
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7729468.svg)](https://doi.org/10.5281/zenodo.7729468)
 [![build_gfortran](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml/badge.svg)](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml)
-[![community](https://img.shields.io/badge/Community_Support-Discord-blue)](https://discord.com/channels/1129502879477141528/1129502880257278074)
+
+**Online community**: ![Discord](https://img.shields.io/discord/1129502879477141528?logo=Discord)
 
 Author: Da,Cheng     Email: cda@umd.edu
 
