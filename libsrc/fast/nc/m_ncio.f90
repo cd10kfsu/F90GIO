@@ -37,6 +37,9 @@ MODULE m_ncio
 ! read ND vars
   PUBLIC :: nc_rdvar1d, nc_rdvar2d, nc_rdvar3d, nc_rdvar4d
 
+! write ND vars
+  PUBLIC :: nc_wrtvar1d, nc_wrtvar2d, nc_wrtvar3d, nc_wrtvar4d
+
 ! low-level Read 1D
   PUBLIC :: nc_rdvar1d_i1, nc_rdvar1d_i2, nc_rdvar1d_i4, nc_rdvar1d_r4, &
             nc_rdvar1d_r8
@@ -49,6 +52,20 @@ MODULE m_ncio
 ! low-level Read 4D
   PUBLIC :: nc_rdvar4d_i1, nc_rdvar4d_i2, nc_rdvar4d_i4, nc_rdvar4d_r4, &
             nc_rdvar4d_r8
+
+! low-level Write 1D
+  PUBLIC :: nc_wrtvar1d_i1, nc_wrtvar1d_i2, nc_wrtvar1d_i4, nc_wrtvar1d_r4, &
+            nc_wrtvar1d_r8
+! low-level Write 2D
+  PUBLIC :: nc_wrtvar2d_i1, nc_wrtvar2d_i2, nc_wrtvar2d_i4, nc_wrtvar2d_r4, &
+            nc_wrtvar2d_r8
+! low-level Write 3D
+  PUBLIC :: nc_wrtvar3d_i1, nc_wrtvar3d_i2, nc_wrtvar3d_i4, nc_wrtvar3d_r4, &
+            nc_wrtvar3d_r8
+! low-level Write 4D
+  PUBLIC :: nc_wrtvar4d_i1, nc_wrtvar4d_i2, nc_wrtvar4d_i4, nc_wrtvar4d_r4, &
+            nc_wrtvar4d_r8
+
 
 !-------------------------------------------------------------------------------
 ! Internal vars & subs
@@ -77,6 +94,27 @@ MODULE m_ncio
     MODULE PROCEDURE nc_rdvar4d_i1, nc_rdvar4d_i2, nc_rdvar4d_i4
     MODULE PROCEDURE nc_rdvar4d_r4, nc_rdvar4d_r8
   END INTERFACE
+
+  INTERFACE nc_wrtvar1d
+    MODULE PROCEDURE nc_wrtvar1d_i1, nc_wrtvar1d_i2, nc_wrtvar1d_i4
+    MODULE PROCEDURE nc_wrtvar1d_r4, nc_wrtvar1d_r8
+  END INTERFACE
+
+  INTERFACE nc_wrtvar2d
+    MODULE PROCEDURE nc_wrtvar2d_i1, nc_wrtvar2d_i2, nc_wrtvar2d_i4
+    MODULE PROCEDURE nc_wrtvar2d_r4, nc_wrtvar2d_r8
+  END INTERFACE
+
+  INTERFACE nc_wrtvar3d
+    MODULE PROCEDURE nc_wrtvar3d_i1, nc_wrtvar3d_i2, nc_wrtvar3d_i4
+    MODULE PROCEDURE nc_wrtvar3d_r4, nc_wrtvar3d_r8
+  END INTERFACE
+
+  INTERFACE nc_wrtvar4d
+    MODULE PROCEDURE nc_wrtvar4d_i1, nc_wrtvar4d_i2, nc_wrtvar4d_i4
+    MODULE PROCEDURE nc_wrtvar4d_r4, nc_wrtvar4d_r8
+  END INTERFACE
+
 
   INTEGER,PARAMETER :: i1 = 1
   INTEGER,PARAMETER :: i2 = 2
@@ -118,14 +156,24 @@ END SUBROUTINE
 !--------------------------------------------------------------------------------
 ! open/close nc file
 !--------------------------------------------------------------------------------
-SUBROUTINE nc_get_fid(filename,fid)
+SUBROUTINE nc_get_fid(filename,fid,writemode)
   IMPLICIT NONE
 
   CHARACTER(*),INTENT(IN)  :: filename
   INTEGER(i4), INTENT(OUT) :: fid
+  LOGICAL,     INTENT(IN), OPTIONAL :: writemode
   INTEGER(i4) :: istat
 
-  istat = NF90_Open( TRIM(filename), NF90_NOWRITE, fid)
+  logical :: writemode_
+
+  writemode_ = .false. 
+  if (present(writemode)) writemode_ = writemode
+
+  if (writemode_) then
+    istat = NF90_Open( TRIM(filename), NF90_WRITE, fid)
+  else
+    istat = NF90_Open( TRIM(filename), NF90_NOWRITE, fid)
+  end if
   if (istat /= NF90_NOERR) then
      write(lout_log,*) "[err] nc_get_fid::Fail to get fid of file:",trim(filename)
      call mystop(errcode%fid)
@@ -193,6 +241,50 @@ END SUBROUTINE
 
 
 !--------------------------------------------------------------------------------
+! write 1D
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_wrtvar1d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i1), INTENT(IN) :: varval(:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar1d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i2), INTENT(IN) :: varval(:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar1d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i4), INTENT(IN) :: varval(:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar1d_r4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r4), INTENT(IN) :: varval(:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar1d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r8), INTENT(IN) :: varval(:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+
+!--------------------------------------------------------------------------------
 ! read 2D
 !--------------------------------------------------------------------------------
 SUBROUTINE nc_rdvar2d_i1(fid, varname, varval)
@@ -233,6 +325,49 @@ SUBROUTINE nc_rdvar2d_r8(fid, varname, varval)
   CHARACTER(*),INTENT(IN) :: varname
   REAL(r8), INTENT(OUT) :: varval(:,:)
   include "nc_rdvar.f90.inc"
+END SUBROUTINE 
+
+!--------------------------------------------------------------------------------
+! write 2D
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_wrtvar2d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i1), INTENT(IN) :: varval(:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar2d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i2), INTENT(IN) :: varval(:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar2d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i4), INTENT(IN) :: varval(:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar2d_r4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r4), INTENT(IN) :: varval(:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar2d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r8), INTENT(IN) :: varval(:,:)
+  include "nc_wrtvar.f90.inc"
 END SUBROUTINE 
 
 
@@ -280,6 +415,50 @@ SUBROUTINE nc_rdvar3d_r8(fid, varname, varval)
 END SUBROUTINE 
 
 !--------------------------------------------------------------------------------
+! write 3D
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_wrtvar3d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i1), INTENT(IN) :: varval(:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar3d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i2), INTENT(IN) :: varval(:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar3d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i4), INTENT(IN) :: varval(:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar3d_r4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r4), INTENT(IN) :: varval(:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar3d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r8), INTENT(IN) :: varval(:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+
+!--------------------------------------------------------------------------------
 ! read 4D
 !--------------------------------------------------------------------------------
 SUBROUTINE nc_rdvar4d_i1(fid, varname, varval)
@@ -321,6 +500,51 @@ SUBROUTINE nc_rdvar4d_r8(fid, varname, varval)
   REAL(r8), INTENT(OUT) :: varval(:,:,:,:)
   include "nc_rdvar.f90.inc"
 END SUBROUTINE 
+
+
+!--------------------------------------------------------------------------------
+! write 4D
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_wrtvar4d_i1(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i1), INTENT(IN) :: varval(:,:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar4d_i2(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i2), INTENT(IN) :: varval(:,:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar4d_i4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i4), INTENT(IN) :: varval(:,:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar4d_r4(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r4), INTENT(IN) :: varval(:,:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
+SUBROUTINE nc_wrtvar4d_r8(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  REAL(r8), INTENT(IN) :: varval(:,:,:,:)
+  include "nc_wrtvar.f90.inc"
+END SUBROUTINE 
+
 
 
 !--------------------------------------------------------------------------------
