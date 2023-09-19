@@ -1,6 +1,6 @@
 #  F90GIO Release v2.0
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7729468.svg)](https://doi.org/10.5281/zenodo.7729468)
-[![GitHub Clones](https://img.shields.io/badge/dynamic/json?color=blue&label=Unique%20clone%20since%2009/13/2023&query=count&url=https://gist.githubusercontent.com/cd10kfsu/10a9cdaa0d1d14b12e1f58bcef5e56c3/raw/clone.json&logo=github)](https://github.com/MShawon/github-clone-count-badge)
+[![GitHub Clones](https://img.shields.io/badge/dynamic/json?color=blue&label=Unique%20clone%20since%2009/13/2023&query=uniques&url=https://gist.githubusercontent.com/cd10kfsu/10a9cdaa0d1d14b12e1f58bcef5e56c3/raw/clone.json&logo=github)](https://github.com/MShawon/github-clone-count-badge)
 [![build_gfortran](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml/badge.svg)](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml)
 
 **Online community**: [![Discord](https://img.shields.io/discord/1129502879477141528?logo=Discord)](https://discord.gg/FdFFUy9Zcc)
