@@ -17,10 +17,16 @@ MODULE m_ncio
   IMPLICIT NONE
   PRIVATE
   
-!  PUBLIC :: NF90_DOUBLE, NF90_FLOAT, NF90_INT, NF90_SHORT, NF90_BYTE
+  PUBLIC :: NF90_DOUBLE, NF90_FLOAT, NF90_INT, NF90_SHORT, NF90_BYTE
 
 ! open/close file
   PUBLIC :: nc_get_fid, nc_close_fid
+
+! Create new file/dim/var
+  PUBLIC :: nc_create_file, nc_create_dim, nc_create_var
+
+! End def mode
+  PUBLIC :: nc_end_create
 
 ! Read Attributes
   PUBLIC :: nc_rdatt
@@ -28,6 +34,7 @@ MODULE m_ncio
 ! low-level read Attributes
   PUBLIC :: nc_rdatt_str, nc_rdatt_i1, nc_rdatt_i2, nc_rdatt_i4, &
             nc_rdatt_r4, nc_rdatt_r8
+
 ! Get dimension
   PUBLIC :: nc_rddim
 
@@ -133,6 +140,10 @@ MODULE m_ncio
     INTEGER(i1) :: attval = 4
     INTEGER(i1) :: dimid  = 5
     INTEGER(i1) :: dimval = 6
+    INTEGER(i1) :: genfile = 7
+    INTEGER(i1) :: gendim  = 8
+    INTEGER(i1) :: genvar  = 9
+    INTEGER(i1) :: endgen  = 10
     INTEGER(i1) :: undef  = 127 ! max positive for signed 8-byte int
   END TYPE 
   TYPE(t_errcode),SAVE,PRIVATE:: errcode
@@ -152,6 +163,45 @@ SUBROUTINE mystop(errcode)
   STOP (INT(errcode,i4))
 END SUBROUTINE 
 
+
+
+!--------------------------------------------------------------------------------
+! end def mode
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_end_create(fid)
+  IMPLICIT NONE
+
+  INTEGER(i4),INTENT(IN) :: fid
+
+  INTEGER(i4) :: istat
+
+  istat = nf90_enddef(fid)
+  if (istat /= NF90_NOERR) then
+     write(lout_log,*) "[err] nc_end_create: cannot close def mode for fid:", fid
+     call mystop(errcode%endgen)
+  end if
+
+END SUBROUTINE 
+
+
+!--------------------------------------------------------------------------------
+! create nc file
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_create_file(filename, fid)
+  IMPLICIT NONE
+
+  CHARACTER(*),INTENT(IN)  :: filename
+  INTEGER(i4), INTENT(OUT) :: fid
+
+  INTEGER(i4) :: istat
+
+  istat = nf90_create(trim(filename), NF90_CLOBBER, fid)
+  if (istat /= NF90_NOERR) then
+     write(lout_log,*) "[err] nc_create_file: cannot get fid for file", trim(filename)
+     call mystop(errcode%genfile) 
+  end if
+
+END SUBROUTINE nc_create_file
 
 !--------------------------------------------------------------------------------
 ! open/close nc file
@@ -196,6 +246,29 @@ SUBROUTINE nc_close_fid(fid)
 
 END SUBROUTINE nc_close_fid
 
+
+!--------------------------------------------------------------------------------
+! create vars
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_create_var(fid, varname, vartype, varsize, varid)
+  IMPLICIT NONE
+
+  INTEGER(i4), INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  INTEGER(i4), INTENT(IN) :: vartype
+  INTEGER(i4), INTENT(IN) :: varsize(:)
+  INTEGER(i4), INTENT(OUT) :: varid
+
+  INTEGER(i4) :: istat
+
+  istat = nf90_def_var(fid, trim(varname), vartype, varsize, varid)
+  if (istat /= NF90_NOERR) then
+     write(lout_log,*) "[err] nc_create_vars: cannot create var:", trim(varname)
+     call mystop(errcode%genvar)
+  end if
+
+END SUBROUTINE
+ 
 !--------------------------------------------------------------------------------
 ! read 1D
 !--------------------------------------------------------------------------------
@@ -604,6 +677,33 @@ SUBROUTINE nc_rdatt_r8(fid, varname, attname, attval)
   REAL(r8),    INTENT(OUT) :: attval
   include "nc_rdatt.f90.inc"
 END SUBROUTINE
+
+!--------------------------------------------------------------------------------
+! define dimension
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_create_dim(fid, dimname, dimsize, lunlimited, dimid)
+  IMPLICIT NONE
+
+  INTEGER(i4), INTENT(IN)  :: fid
+  CHARACTER(*),INTENT(IN)  :: dimname
+  INTEGER(i4), INTENT(IN)  :: dimsize
+  LOGICAL,     INTENT(IN)  :: lunlimited
+  INTEGER(i4), INTENT(OUT) :: dimid
+
+  INTEGER :: istat
+
+  if (lunlimited) then
+    istat = nf90_def_dim(fid, trim(dimname), NF90_UNLIMITED, dimid)
+  else
+    istat = nf90_def_dim(fid, trim(dimname), dimsize, dimid)
+  end if
+  if (istat /= NF90_NOERR) then
+     write(lout_log,*) "[err] nc_create_dim: cannot create dim:"//trim(dimname)
+     call mystop(errcode%gendim)
+  end if
+
+
+END SUBROUTINE 
 
 
 !--------------------------------------------------------------------------------
