@@ -49,7 +49,7 @@ MODULE m_ncio
 
 ! low-level Read 1D
   PUBLIC :: nc_rdvar1d_i1, nc_rdvar1d_i2, nc_rdvar1d_i4, nc_rdvar1d_r4, &
-            nc_rdvar1d_r8
+            nc_rdvar1d_r8, nc_rdvar1d_str
 ! low-level Read 2D
   PUBLIC :: nc_rdvar2d_i1, nc_rdvar2d_i2, nc_rdvar2d_i4, nc_rdvar2d_r4, &
             nc_rdvar2d_r8
@@ -312,6 +312,15 @@ SUBROUTINE nc_rdvar1d_r8(fid, varname, varval)
   include "nc_rdvar.f90.inc"
 END SUBROUTINE 
 
+SUBROUTINE nc_rdvar1d_str(fid, varname, varval)
+  IMPLICIT NONE
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname
+  CHARACTER(*), INTENT(INOUT) :: varval(:)
+  include "nc_rdvar.f90.inc"
+END SUBROUTINE 
+
+
 
 !--------------------------------------------------------------------------------
 ! write 1D
@@ -399,6 +408,7 @@ SUBROUTINE nc_rdvar2d_r8(fid, varname, varval)
   REAL(r8), INTENT(OUT) :: varval(:,:)
   include "nc_rdvar.f90.inc"
 END SUBROUTINE 
+
 
 !--------------------------------------------------------------------------------
 ! write 2D
