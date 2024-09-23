@@ -96,3 +96,7 @@ config/env.sh sets the required environmental vars used by CMAKE.
    cmake .. -DBUILD_NC=ON -DBUILD_H5=on -DH5_VERSION_1_8=ON -DBUILD_FAST_IO=ON
    make; make test
    ```
+4. Most common combination for Mac ARM (enable hdf5 (version>1.8) & nc, disable hdf4)
+   ```
+   . ../config/env.gnu.mac-arm.sh  &&  cmake .. -DBUILD_NC=ON -DBUILD_H4=OFF -DBUILD_H5=ON -DH5_VERSION_1_8=OFF -DBUILD_FAST_IO=ON && make && make test
+   ```
