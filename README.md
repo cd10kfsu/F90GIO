@@ -26,43 +26,26 @@ please acknowledge it in your acknowledgement section in your papers if
 possible. Thanks!
 
 
-## Major changes
-1. Add fast I/O libs for NetCDF and H5 files: `ncio` and `h5io` libs
-   remove lots of checks in F90GIO, and reduce the times of open/close
-   files.
-
-
-## Install NetCDF/HDF4/HDF5 library
-
-1. For installing HDF4, if you'd like to use my netcdf & hdf4 module 
-   simultenously, you need to disable the netcdf-I/O capability:
+## Quick start: Install F90GIO library
+1. Running the command 
    ```
-       --disable-netcdf
+   source config/env.[compiler].[machine].sh
    ```
-   when runnning configure. Other important flags for F90GIO includes:
-   ```    
-       --enable-fortran F77=YOUR_COMPILER (e.g., F77=ifort)
+   to set the environmental variables required by `F90GIO`, essentially variables for netcdf, hdf4, and hdf5 (only set the vars for the library that you will use). There are several template under the dir `config` to start with.
+
+2. Go to the top directory of this repo, run the following commands
    ```
-   The general flags when you configure HDF4 library can be found in the 
-   file named INSTALL in the directory `~/release_notes` of the official 
-   source code pakage or see this file online
-(https://www.hdfgroup.org/ftp/HDF/HDF_Current/src/unpacked/release_notes/INSTALL).
-
-2. For HDF5 compilation, you need to add flag: 
+   mkdir build && cd build
+   cmake .. -DCMAKE_INSTALL_PREFIX=<your_installation_path> 
+   make -j1 
+   #make -j1 VERBOSE=1, if you want to see the detailed building info
+   make test
+   make install
    ```
-       --enable-fortran --enable-fotran2003
-   ```
-   other general flags when configuring the HDF5 can be found in the 
-   directory of `~/release_docs` of the official source code package or 
-   see this file online
-   (http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/release_docs/INSTALL)
+3. The libs and includes will be generated under `<your_installation_path>/lib` and `<your_installation_path>/include`, which you can use for building your own excutables with `F90GIO`.
+4. See the usage of `F90GIO` by checking examples under `test-fast`, `test`, and `test-nolib`.
 
-## Install F90GIO library
-
-"make all" in the current directory, and a directory "build" will be created here. The libs and includes will be under "build/libs" and "build/include".
-
-config/env.sh sets the required environmental vars used by CMAKE.
-
+## Customized installation
 1. To turn off specific lib, you can modify Makefile at the current directory as:
    - turn off hdf4
      ```
@@ -96,7 +79,34 @@ config/env.sh sets the required environmental vars used by CMAKE.
    cmake .. -DBUILD_NC=ON -DBUILD_H5=on -DH5_VERSION_1_8=ON -DBUILD_FAST_IO=ON
    make; make test
    ```
-4. Most common combination for Mac ARM (enable hdf5 (version>1.8) & nc, disable hdf4)
+4. Most common combination for Mac ARM using Homebrew (enable hdf5 (version>1.8) & nc, disable hdf4)
    ```
    . ../config/env.gnu.mac-arm.sh  &&  cmake .. -DBUILD_NC=ON -DBUILD_H4=OFF -DBUILD_H5=ON -DH5_VERSION_1_8=OFF -DBUILD_FAST_IO=ON && make && make test
    ```
+
+## Install NetCDF/HDF4/HDF5 library
+
+1. For installing HDF4, if you'd like to use my netcdf & hdf4 module 
+   simultenously, you need to disable the netcdf-I/O capability:
+   ```
+       --disable-netcdf
+   ```
+   when runnning configure. Other important flags for F90GIO includes:
+   ```    
+       --enable-fortran F77=YOUR_COMPILER (e.g., F77=ifort)
+   ```
+   The general flags when you configure HDF4 library can be found in the 
+   file named INSTALL in the directory `~/release_notes` of the official 
+   source code pakage or see this file online
+(https://www.hdfgroup.org/ftp/HDF/HDF_Current/src/unpacked/release_notes/INSTALL).
+
+2. For HDF5 compilation, you need to add flag: 
+   ```
+       --enable-fortran --enable-fotran2003
+   ```
+   other general flags when configuring the HDF5 can be found in the 
+   directory of `~/release_docs` of the official source code package or 
+   see this file online
+   (http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/release_docs/INSTALL)
+
+

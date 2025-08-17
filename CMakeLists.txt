@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.6)
 
 project(f90gio Fortran)
 #set(CMAKE_VERBOSE_MAKEFILE on)
@@ -12,7 +12,7 @@ endif()
 
 option(BUILD_NC "build f90gionc" ON)
 option(BUILD_H4 "build f90gioh4" OFF)
-option(BUILD_H5 "build f90gioh5" OFF)
+option(BUILD_H5 "build f90gioh5" ON)
 option(BUILD_FAST_IO "build fast io libs" ON)
 
 option(H5_VERSION_1_8 "H5LIB <=1.8" OFF)
@@ -20,6 +20,8 @@ option(H5_VERSION_1_8 "H5LIB <=1.8" OFF)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "release")
 endif()
+
+set(BUILD_SHARED_LIBS OFF) # build static libraries
 
 
 set(CMAKE_Fortran_MODULE_DIRECTORY ${PROJECT_BINARY_DIR}/include)
