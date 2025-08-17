@@ -13,8 +13,8 @@
 #F90GIO_INCLUDE_DIR=$(F90GIO_DIR)/include
 
 # config for Netcdf
-export NC_INCLUDE="/opt/homebrew/Cellar/netcdf-fortran/4.6.1/include"
-export NC_LIBS="-L/opt/homebrew/Cellar/netcdf-fortran/4.6.1/lib -lnetcdff -lnetcdf -lnetcdf"
+export NC_INCLUDE="/opt/homebrew/Cellar/netcdf-fortran/4.6.2/include"
+export NC_LIBS="-L/opt/homebrew/Cellar/netcdf-fortran/4.6.2/lib -lnetcdff"
 
 # config for HDF4 
 export H4_INCLUDE=""
@@ -22,12 +22,11 @@ export H4_LIBS=`h4fc -show TESTSRC | awk -F"TESTSRC " '{print $2}'`
 
 
 # config for HDF5
-export H5_INCLUDE="/opt/homebrew/Cellar/hdf5/1.14.3_1/include"
-#"/opt/homebrew/Cellar/hdf5/1.14.3_1/include"
-export H5_LIBS="-L/opt/homebrew/Cellar/hdf5/1.14.3_1/lib -lhdf5_fortran -lhdf5"
-#/opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5_hl_fortran.a /opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5_hl.a /opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5_fortran.a /opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5.a "
+#export H5_INCLUDE="/opt/homebrew/Cellar/hdf5/1.14.3_1/include"
+export H5_INCLUDE="/opt/homebrew/include"
+#export H5_LIBS="-L/opt/homebrew/Cellar/hdf5/1.14.3_1/lib -lhdf5_fortran -lhdf5"
+export H5_LIBS="-L/opt/homebrew/lib -lhdf5_fortran -lhdf5"
 
-#-L/opt/homebrew/Cellar/hdf5/1.14.3_1/lib /opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5_hl_fortran.a /opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5_hl.a /opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5_fortran.a /opt/homebrew/Cellar/hdf5/1.14.3_1/lib/libhdf5.a /opt/homebrew/lib/libsz.a -lz -ldl -lm"
 
 
 echo "====================================="

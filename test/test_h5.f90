@@ -39,7 +39,7 @@ program test_h5
   Enddo
 
 
-! get data from hdf4 file
+! get data from hdf5 file
   ios = H5_ReadVar2d( "hdf5_testdata.h5", TRIM(var_name), var2_val )
 ! 
   if ( any(var_val/=var2_val) ) lpass(1) = .false.
