@@ -17,11 +17,11 @@ jobs:
     - name: "install NetCDF, HDF4, HDF5"
       run: |
            sudo apt-get update
-           sudo apt install cmake -y
-           sudo apt install gfortran -y
-           sudo apt install libnetcdf-dev libnetcdff-dev netcdf-bin  -y
-           sudo apt install hdf4-tools libhdf4-dev -y
-           sudo apt install hdf5-tools libhdf5-dev -y
+           sudo apt-get install -y cmake 
+           sudo apt-get install -y gfortran
+           sudo apt-get install -y libnetcdf-dev libnetcdff-dev netcdf-bin  
+           sudo apt-get install -y hdf4-tools libhdf4-dev 
+           sudo apt-get install -y hdf5-tools libhdf5-dev
            ulimit -s unlimited
 
     - name: "check version and envs"
@@ -51,7 +51,7 @@ jobs:
            make install
            ls -al ${{github.workspace}}/install/*
 
-    - name: "build using the F90GIO lib"
+    - name: "build your own executable using the F90GIO lib"
       run: |
            mkdir ${{github.workspace}}/test-external && cd ${{github.workspace}}/test-external
            ln -sf ${{github.workspace}}/test-fast/* .
