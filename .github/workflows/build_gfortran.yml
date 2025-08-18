@@ -49,3 +49,17 @@ jobs:
            make install
            ls -al ${{github.workspace}}/install/*
 
+    - name: "build using the F90GIO lib"
+      run: |
+           mkdir ${{github.workspace}}/test-external && cd ${{github.workspace}}/test-external
+           ln -sf ${{github.workspace}}/test-fast/* .
+           gfortran -I${{github.workspace}}/install/include -c test_ncio.f90
+           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS}
+
+           gfortran -I${{github.workspace}}/install/include -c test_h5io.f90
+           gfortran test_h5io.o -o test_h5io.x -L${{github.workspace}}/install/lib -lh5io ${H5_LIBS}
+
+           ls -al *.x
+
+           ./test_ncio.x | grep "Test passed" && exit 0 || exit 1
+           ./test_h5io.x | grep "Test passed" && exit 0 || exit 1
