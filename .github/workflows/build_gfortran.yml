@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
 
     - name: "install NetCDF, HDF4, HDF5"
       run: |
@@ -54,15 +54,12 @@ jobs:
     - name: "build using the F90GIO lib"
       run: |
            mkdir ${{github.workspace}}/test-external && cd ${{github.workspace}}/test-external
-           source ${{github.workspace}}/config/env.gnu.github.sh
            ln -sf ${{github.workspace}}/test-fast/* .
-           echo "${NC_LIBS}"
-           echo "${NC_INCLUDE}"
-           echo "${H5_LIBS}"
-           echo "${H5_INCLUDE}"
+
+           source ${{github.workspace}}/config/env.gnu.github.sh
+
            gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE}  -c test_ncio.f90
            gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS}
-
            gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
            gfortran test_h5io.o -o test_h5io.x -L${{github.workspace}}/install/lib -lh5io ${H5_LIBS}
 
