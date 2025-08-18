@@ -1,4 +1,4 @@
-#  F90GIO Release v2.0
+#  F90GIO Release v2.0.3
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7729468.svg)](https://doi.org/10.5281/zenodo.7729468)
 [![GitHub Clones](https://img.shields.io/badge/dynamic/json?color=blue&label=Unique%20clone%20since%2009/13/2023&query=uniques&url=https://gist.githubusercontent.com/cd10kfsu/10a9cdaa0d1d14b12e1f58bcef5e56c3/raw/clone.json&logo=github)](https://github.com/MShawon/github-clone-count-badge)
 [![build_gfortran](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml/badge.svg)](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml)
@@ -44,6 +44,11 @@ possible. Thanks!
    ```
 3. The libs and includes will be generated under `<your_installation_path>/lib` and `<your_installation_path>/include`, which you can use for building your own excutables with `F90GIO`.
 4. See the usage of `F90GIO` by checking examples under `test-fast`, `test`, and `test-nolib`.
+
+
+## Build your own executables with F90GIO
+1. check the step `build your own executable using the F90GIO lib` in the file `.github/workflows/build_gfortran.yml`.
+
 
 ## Customized installation
 1. To turn off specific lib, you can modify Makefile at the current directory as:

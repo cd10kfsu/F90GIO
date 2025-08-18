@@ -9,17 +9,19 @@ env:
 
 jobs:
   cmake_build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
 
     - name: "install NetCDF, HDF4, HDF5"
       run: |
            sudo apt-get update
-           sudo apt install libnetcdf-dev libnetcdff-dev netcdf-bin 
-           sudo apt install hdf4-tools libhdf4-dev
-           sudo apt install hdf5-tools libhdf5-dev
+           sudo apt-get install -y cmake 
+           sudo apt-get install -y gfortran
+           sudo apt-get install -y libnetcdf-dev libnetcdff-dev netcdf-bin  
+           sudo apt-get install -y hdf4-tools libhdf4-dev 
+           sudo apt-get install -y hdf5-tools libhdf5-dev
            ulimit -s unlimited
 
     - name: "check version and envs"
@@ -49,3 +51,19 @@ jobs:
            make install
            ls -al ${{github.workspace}}/install/*
 
+    - name: "build your own executable using the F90GIO lib"
+      run: |
+           mkdir ${{github.workspace}}/test-external && cd ${{github.workspace}}/test-external
+           ln -sf ${{github.workspace}}/test-fast/* .
+
+           source ${{github.workspace}}/config/env.gnu.github.sh
+
+           gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE}  -c test_ncio.f90
+           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS}
+           gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
+           gfortran test_h5io.o -o test_h5io.x -L${{github.workspace}}/install/lib -lh5io ${H5_LIBS}
+
+           ls -al *.x
+
+           ./test_ncio.x | grep "Test passed" && echo "success" || exit 1
+           ./test_h5io.x | grep "Test passed" && echo "success" || exit 1
