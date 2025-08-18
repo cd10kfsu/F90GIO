@@ -52,6 +52,7 @@ jobs:
     - name: "build using the F90GIO lib"
       run: |
            mkdir ${{github.workspace}}/test-external && cd ${{github.workspace}}/test-external
+           source ${{github.workspace}}/config/env.gnu.github.sh
            ln -sf ${{github.workspace}}/test-fast/* .
            echo "${NC_LIBS}"
            echo "${NC_INCLUDE}"
