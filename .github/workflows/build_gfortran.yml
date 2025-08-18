@@ -53,11 +53,15 @@ jobs:
       run: |
            mkdir ${{github.workspace}}/test-external && cd ${{github.workspace}}/test-external
            ln -sf ${{github.workspace}}/test-fast/* .
+           echo "${NC_LIBS}"
+           echo "${NC_INCLUDE}"
+           echo "${H5_LIBS}"
+           echo "${H5_INCLUDE}"
            gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE}  -c test_ncio.f90
-           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS}
+           gfortran test_ncio.o -o test_ncio.x ${NC_LIBS} -L${{github.workspace}}/install/lib -lncio 
 
            gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
-           gfortran test_h5io.o -o test_h5io.x -L${{github.workspace}}/install/lib -lh5io ${H5_LIBS}
+           gfortran test_h5io.o -o test_h5io.x ${H5_LIBS} -L${{github.workspace}}/install/lib -lh5io
 
            ls -al *.x
 
