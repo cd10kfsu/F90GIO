@@ -58,7 +58,9 @@ jobs:
            echo "${NC_INCLUDE}"
            echo "${H5_LIBS}"
            echo "${H5_INCLUDE}"
+           echo "gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE}  -c test_ncio.f90"
            gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE}  -c test_ncio.f90
+           echo "gfortran test_ncio.o -o test_ncio.x ${NC_LIBS} -L${{github.workspace}}/install/lib -lncio"
            gfortran test_ncio.o -o test_ncio.x ${NC_LIBS} -L${{github.workspace}}/install/lib -lncio 
 
            gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
