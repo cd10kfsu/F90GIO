@@ -45,6 +45,11 @@ possible. Thanks!
 3. The libs and includes will be generated under `<your_installation_path>/lib` and `<your_installation_path>/include`, which you can use for building your own excutables with `F90GIO`.
 4. See the usage of `F90GIO` by checking examples under `test-fast`, `test`, and `test-nolib`.
 
+
+## Build your own executables with F90GIO
+1. check the step `build your own executable using the F90GIO lib` in the file `.github/workflows/build_gfortran.yml`.
+
+
 ## Customized installation
 1. To turn off specific lib, you can modify Makefile at the current directory as:
    - turn off hdf4
