@@ -9,7 +9,7 @@ MODULE m_ncio
                     NF90_DOUBLE, NF90_FLOAT, NF90_INT, NF90_SHORT, NF90_BYTE, &
                     NF90_UNLIMITED, &
                     NF90_Open, NF90_Close, &
-                    NF90_inquire, NF90_Inq_Varid, NF90_Inquire_Variable, &
+                    NF90_inquire, NF90_Inq_Ncid, NF90_Inq_Varid, NF90_Inquire_Variable, &
                     NF90_Inq_DimID, NF90_Inquire_Dimension, &
                     NF90_Get_Var, NF90_Put_Var, &
                     NF90_Create, NF90_Def_dim, NF90_Def_Var, NF90_Enddef, NF90_reDef, &
@@ -21,6 +21,9 @@ MODULE m_ncio
 
 ! open/close file
   PUBLIC :: nc_get_fid, nc_close_fid
+
+! get group id
+  PUBLIC :: nc_get_gid
 
 ! Create new file/dim/var
   PUBLIC :: nc_create_file, nc_create_dim, nc_create_var
@@ -42,9 +45,11 @@ MODULE m_ncio
   PUBLIC :: nc_fndvar, nc_fnddim
 
 ! read ND vars
+  PUBLIC :: nc_rdvar
   PUBLIC :: nc_rdvar1d, nc_rdvar2d, nc_rdvar3d, nc_rdvar4d
 
 ! write ND vars
+  PUBLIC :: nc_wrtvar
   PUBLIC :: nc_wrtvar1d, nc_wrtvar2d, nc_wrtvar3d, nc_wrtvar4d
 
 ! low-level Read 1D
@@ -82,6 +87,17 @@ MODULE m_ncio
     MODULE PROCEDURE nc_rdatt_r4, nc_rdatt_r8
   END INTERFACE
 
+  INTERFACE nc_rdvar
+    MODULE PROCEDURE nc_rdvar1d_i1, nc_rdvar1d_i2, nc_rdvar1d_i4
+    MODULE PROCEDURE nc_rdvar1d_r4, nc_rdvar1d_r8
+    MODULE PROCEDURE nc_rdvar2d_i1, nc_rdvar2d_i2, nc_rdvar2d_i4
+    MODULE PROCEDURE nc_rdvar2d_r4, nc_rdvar2d_r8
+    MODULE PROCEDURE nc_rdvar3d_i1, nc_rdvar3d_i2, nc_rdvar3d_i4
+    MODULE PROCEDURE nc_rdvar3d_r4, nc_rdvar3d_r8
+    MODULE PROCEDURE nc_rdvar4d_i1, nc_rdvar4d_i2, nc_rdvar4d_i4
+    MODULE PROCEDURE nc_rdvar4d_r4, nc_rdvar4d_r8
+  END INTERFACE
+
   INTERFACE nc_rdvar1d
     MODULE PROCEDURE nc_rdvar1d_i1, nc_rdvar1d_i2, nc_rdvar1d_i4
     MODULE PROCEDURE nc_rdvar1d_r4, nc_rdvar1d_r8
@@ -100,6 +116,17 @@ MODULE m_ncio
   INTERFACE nc_rdvar4d
     MODULE PROCEDURE nc_rdvar4d_i1, nc_rdvar4d_i2, nc_rdvar4d_i4
     MODULE PROCEDURE nc_rdvar4d_r4, nc_rdvar4d_r8
+  END INTERFACE
+
+  INTERFACE nc_wrtvar
+    MODULE PROCEDURE nc_wrtvar1d_i1, nc_wrtvar1d_i2, nc_wrtvar1d_i4
+    MODULE PROCEDURE nc_wrtvar1d_r4, nc_wrtvar1d_r8
+    MODULE PROCEDURE nc_wrtvar2d_i1, nc_wrtvar2d_i2, nc_wrtvar2d_i4
+    MODULE PROCEDURE nc_wrtvar2d_r4, nc_wrtvar2d_r8
+    MODULE PROCEDURE nc_wrtvar3d_i1, nc_wrtvar3d_i2, nc_wrtvar3d_i4
+    MODULE PROCEDURE nc_wrtvar3d_r4, nc_wrtvar3d_r8
+    MODULE PROCEDURE nc_wrtvar4d_i1, nc_wrtvar4d_i2, nc_wrtvar4d_i4
+    MODULE PROCEDURE nc_wrtvar4d_r4, nc_wrtvar4d_r8
   END INTERFACE
 
   INTERFACE nc_wrtvar1d
@@ -144,6 +171,7 @@ MODULE m_ncio
     INTEGER(i1) :: gendim  = 8
     INTEGER(i1) :: genvar  = 9
     INTEGER(i1) :: endgen  = 10
+    INTEGER(i1) :: gid     = 11
     INTEGER(i1) :: undef  = 127 ! max positive for signed 8-byte int
   END TYPE 
   TYPE(t_errcode),SAVE,PRIVATE:: errcode
@@ -246,6 +274,24 @@ SUBROUTINE nc_close_fid(fid)
 
 END SUBROUTINE nc_close_fid
 
+!--------------------------------------------------------------------------------
+! group operations
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_get_gid(fid, gname, gid)
+  IMPLICIT NONE
+
+  INTEGER(i4),INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: gname
+  INTEGER(i4),INTENT(OUT) :: gid
+  INTEGER(i4) :: istat
+
+  istat = nf90_inq_ncid(fid, trim(gname), gid)
+  if (istat /= NF90_NOERR) then
+     write(lout_log,*) "[err] nc_close_fid::Fail to get group id =",fid, "for var:", trim(gname)
+     call mystop(errcode%gid)
+  end if
+
+END SUBROUTINE nc_get_gid
 
 !--------------------------------------------------------------------------------
 ! create vars
