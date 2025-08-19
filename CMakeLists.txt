@@ -154,6 +154,7 @@ endif()
 # test nc Fast I/O lib
 if (BUILD_FAST_IO AND HAS_NC)
     cda_add_test(test_ncio  test_ncio  ${CMAKE_SOURCE_DIR}/test-fast "Test passed")
+    cda_add_test(test_ncio_group  test_ncio_group  ${CMAKE_SOURCE_DIR}/test-fast "Test passed")
 endif()
 
 # test hdf5 Fast I/O lib
