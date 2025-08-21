@@ -17,11 +17,11 @@ jobs:
     - name: "install NetCDF, HDF4, HDF5"
       run: |
            sudo apt-get update
-           sudo apt-get install -y cmake 
-           sudo apt-get install -y gfortran
-           sudo apt-get install -y libnetcdf-dev libnetcdff-dev netcdf-bin  
-           sudo apt-get install -y hdf4-tools libhdf4-dev 
-           sudo apt-get install -y hdf5-tools libhdf5-dev
+           #sudo apt-get install -y --no-install-recommends cmake
+           sudo apt-get install -y --no-install-recommends gfortran
+           sudo apt-get install -y --no-install-recommends libnetcdf-dev libnetcdff-dev netcdf-bin  
+           sudo apt-get install -y --no-install-recommends hdf4-tools libhdf4-dev 
+           sudo apt-get install -y --no-install-recommends hdf5-tools libhdf5-dev
            ulimit -s unlimited
 
     - name: "check version and envs"
@@ -38,12 +38,12 @@ jobs:
     - name: "cmake build"
       run: |
            source ./config/env.gnu.github.sh
-           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_Fortran_COMPILER=gfortran -DBUILD_H4=ON -DBUILD_H5=ON -DH5_VERSION_1_8=OFF -DBUILD_NC=ON  -DBUILD_FAST_IO=ON -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install -DCMAKE_VERBOSE_MAKEFILE=ON
+           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=gcc -DCMAKE_Fortran_COMPILER=gfortran -DBUILD_H4=ON -DBUILD_H5=ON -DH5_VERSION_1_8=OFF -DBUILD_NC=ON -DUSE_NC_C=ON -DBUILD_FAST_IO=ON -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install -DCMAKE_VERBOSE_MAKEFILE=ON
            cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: "cmake test"
       working-directory: ${{github.workspace}}/build
-      run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure 
+      run: ctest -C ${{env.BUILD_TYPE}} --verbose --output-on-failure 
 
     - name: "cmake install"
       working-directory: ${{github.workspace}}/build
@@ -58,12 +58,18 @@ jobs:
 
            source ${{github.workspace}}/config/env.gnu.github.sh
 
-           gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE}  -c test_ncio.f90
-           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS}
+           gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE} -I${NC_C_INCLUDE} -c test_ncio.f90
+           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS} ${NC_C_LIBS}
+
+           gfortran -cpp -DHAS_NC_C -I${{github.workspace}}/install/include -I${NC_INCLUDE} -I${NC_C_INCLUDE} -c test_ncio_group.f90
+           gfortran test_ncio_group.o -o test_ncio_group.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS} ${NC_C_LIBS}
+
            gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
            gfortran test_h5io.o -o test_h5io.x -L${{github.workspace}}/install/lib -lh5io ${H5_LIBS}
 
            ls -al *.x
 
            ./test_ncio.x | grep "Test passed" && echo "success" || exit 1
+           ./test_ncio_group.x  # see if netcdf c-string func is used
+           ./test_ncio_group.x | grep "Test passed" && echo "success" || exit 1
            ./test_h5io.x | grep "Test passed" && echo "success" || exit 1

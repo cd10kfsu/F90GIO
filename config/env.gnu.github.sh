@@ -12,9 +12,13 @@
 #F90GIO_LIB_DIR=$(F90GIO_DIR)/lib
 #F90GIO_INCLUDE_DIR=$(F90GIO_DIR)/include
 
-# config for Netcdf
+# config for NetCDF Fortran library
 export NC_INCLUDE=`nf-config --fflags|cut -d " " -f1 | cut -d "I" -f 2`
 export NC_LIBS=`nf-config --flibs`
+
+# config for NetCDF-C library
+export NC_C_INCLUDE=`nc-config --cflags|cut -d " " -f1 | cut -d "I" -f 2`
+export NC_C_LIBS=`nc-config --libs`
 
 # config for HDF4 
 export H4_INCLUDE=""
@@ -33,6 +37,9 @@ echo "      F90GIO configurations:"
 echo 
 echo "NC_INCLUDE=$NC_INCLUDE"
 echo "NC_LIBS=$NC_LIBS"
+
+echo "NC_C_INCLUDE=$NC_INCLUDE"
+echo "NC_C_LIBS=$NC_LIBS"
 
 echo "H4_INCLUDE=$H4_INCLUDE"
 echo "H4_LIBS=$H4_LIBS"

@@ -14,8 +14,12 @@ MODULE m_ncio
                     NF90_Get_Var, NF90_Put_Var, &
                     NF90_Create, NF90_Def_dim, NF90_Def_Var, NF90_Enddef, NF90_reDef, &
                     NF90_GLOBAL, NF90_Get_Att
+  USE, INTRINSIC :: iso_c_binding, ONLY: C_CHAR, C_INT, C_PTR, C_NULL_CHAR, &
+                                         c_associated, c_f_pointer
   IMPLICIT NONE
   PRIVATE
+
+  PRIVATE :: fstr_to_cstr, cstr_to_fstr
   
   PUBLIC :: NF90_DOUBLE, NF90_FLOAT, NF90_INT, NF90_SHORT, NF90_BYTE
 
@@ -32,10 +36,13 @@ MODULE m_ncio
   PUBLIC :: nc_end_create
 
 ! Read Attributes
-  PUBLIC :: nc_rdatt
+  PUBLIC :: nc_rdatt ! excluding nc_rdatt_cstr
 
 ! low-level read Attributes
-  PUBLIC :: nc_rdatt_str, nc_rdatt_i1, nc_rdatt_i2, nc_rdatt_i4, &
+  PUBLIC :: nc_rdatt_cstr  ! read in the C-string attirbutes
+
+  PUBLIC :: nc_rdatt_fstr  ! read in the Fortran Chararacter(*) attributes
+  PUBLIC :: nc_rdatt_i1, nc_rdatt_i2, nc_rdatt_i4, &
             nc_rdatt_r4, nc_rdatt_r8
 
 ! Get dimension
@@ -82,7 +89,6 @@ MODULE m_ncio
 !-------------------------------------------------------------------------------
 ! Internal vars & subs
   INTERFACE nc_rdatt
-    MODULE PROCEDURE nc_rdatt_str
     MODULE PROCEDURE nc_rdatt_i1, nc_rdatt_i2, nc_rdatt_i4
     MODULE PROCEDURE nc_rdatt_r4, nc_rdatt_r8
   END INTERFACE
@@ -149,6 +155,22 @@ MODULE m_ncio
     MODULE PROCEDURE nc_wrtvar4d_r4, nc_wrtvar4d_r8
   END INTERFACE
 
+#ifdef HAS_NC_C
+! used by nc_rdatt_cstr
+  INTERFACE
+      FUNCTION nc_rdatt_cstr1d_f90(ncid, varname, attname, attlen) &
+      RESULT (attstr) BIND(c, name="nc_rdatt_cstr1d")
+        IMPORT C_INT, C_CHAR, C_PTR
+        IMPLICIT NONE
+
+        INTEGER(C_INT),VALUE,INTENT(IN) :: ncid
+        CHARACTER(C_CHAR),   INTENT(IN) :: varname(*)
+        CHARACTER(C_CHAR),   INTENT(IN) :: attname(*)
+        INTEGER(C_INT),      INTENT(OUT) :: attlen
+        TYPE(C_PTR) :: attstr
+      END FUNCTION
+  END INTERFACE
+#endif
 
   INTEGER,PARAMETER :: i1 = 1
   INTEGER,PARAMETER :: i2 = 2
@@ -172,6 +194,8 @@ MODULE m_ncio
     INTEGER(i1) :: genvar  = 9
     INTEGER(i1) :: endgen  = 10
     INTEGER(i1) :: gid     = 11
+    INTEGER(i1) :: strlen = 125
+    INTEGER(i1) :: no_netcdf_c = 126
     INTEGER(i1) :: undef  = 127 ! max positive for signed 8-byte int
   END TYPE 
   TYPE(t_errcode),SAVE,PRIVATE:: errcode
@@ -675,11 +699,84 @@ SUBROUTINE nc_wrtvar4d_r8(fid, varname, varval)
 END SUBROUTINE 
 
 
+!--------------------------------------------------------------------------------
+! read attributes: c-string using netcdf-c library
+!--------------------------------------------------------------------------------
+SUBROUTINE cstr_to_fstr(cstr, fstr)
+  IMPLICIT NONE
+  CHARACTER(kind=C_CHAR,len=1),INTENT(IN) :: cstr(:)
+  CHARACTER(*),INTENT(INOUT) :: fstr
+  INTEGER :: k, nc
+
+  nc = size(cstr)
+  IF (len(fstr) + 1 < nc) THEN
+     WRITE(lout_log,*) "[err] cstr_to_fstr: len_trim(fstr) + 1 < nc: ", len(fstr), nc
+     CALL mystop(errcode%strlen)
+  ENDIF 
+  fstr = ""
+  DO k = 1, nc
+     IF (cstr(k) .eq. C_NULL_CHAR) EXIT 
+     fstr(k:k) = cstr(k)
+  END DO
+  
+END SUBROUTINE
+
+
+SUBROUTINE fstr_to_cstr(fstr, cstr)
+  IMPLICIT NONE
+  CHARACTER(*),INTENT(IN) :: fstr
+  CHARACTER(kind=C_CHAR,len=1),ALLOCATABLE :: cstr(:)
+  INTEGER :: nf, k
+ 
+  nf = len_trim(fstr)
+  allocate(cstr(nf+1))
+  do k = 1, nf
+     cstr(k) = fstr(k:k)
+  end do
+  cstr(nf+1) = C_NULL_CHAR
+
+END SUBROUTINE
+
+SUBROUTINE nc_rdatt_cstr(fid, varname, attname, attval)
+  IMPLICIT NONE
+
+  INTEGER(i4), INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname, attname
+  CHARACTER(*),INTENT(INOUT) :: attval
+
+#ifdef HAS_NC_C
+
+  INTEGER(i4) :: varid, istat
+  INTEGER(i4) :: attlen
+  TYPE(C_PTR) :: cptr_attval
+  CHARACTER(kind=C_CHAR,len=1),POINTER :: fptr_attval(:)
+  CHARACTER(kind=C_CHAR,len=1),ALLOCATABLE :: cvarname(:), cattname(:)
+  INTEGER :: k, n
+
+  CALL fstr_to_cstr(trim(varname),cvarname)
+  CALL fstr_to_cstr(trim(attname),cattname)
+
+  cptr_attval = nc_rdatt_cstr1d_f90(fid, cvarname,cattname, attlen)
+  if (.not.c_associated(cptr_attval) ) then
+     write(lout_log,*) "[err] nc_rdatt_cstr: Failed to get the pointer from C-string"
+     call mystop(errcode%attval)
+  end if
+  call c_f_pointer(cptr_attval, fptr_attval, [attlen+1])
+  call cstr_to_fstr(fptr_attval, attval)
+
+#else
+
+  write(lout_log,*) "[err] nc_rdatt_cstr: not usable since netcdf-c library not available"
+  call mystop(errcode%no_netcdf_c)
+
+#endif
+
+END SUBROUTINE
 
 !--------------------------------------------------------------------------------
 ! read attributes
 !--------------------------------------------------------------------------------
-SUBROUTINE nc_rdatt_str(fid, varname, attname, attval)
+SUBROUTINE nc_rdatt_fstr(fid, varname, attname, attval)
   IMPLICIT NONE
 
   INTEGER(i4), INTENT(IN) :: fid
