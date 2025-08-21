@@ -17,7 +17,7 @@ jobs:
     - name: "install NetCDF, HDF4, HDF5"
       run: |
            sudo apt-get update
-           sudo apt-get install -y cmake 
+           sudo apt-get install -y --no-install-recommends cmake
            sudo apt-get install -y gfortran
            sudo apt-get install -y libnetcdf-dev libnetcdff-dev netcdf-bin  
            sudo apt-get install -y hdf4-tools libhdf4-dev 
