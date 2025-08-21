@@ -70,5 +70,6 @@ jobs:
            ls -al *.x
 
            ./test_ncio.x | grep "Test passed" && echo "success" || exit 1
+           ./test_ncio_group.x  # see if netcdf c-string func is used
            ./test_ncio_group.x | grep "Test passed" && echo "success" || exit 1
            ./test_h5io.x | grep "Test passed" && echo "success" || exit 1
