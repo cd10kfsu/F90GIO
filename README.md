@@ -1,4 +1,4 @@
-#  F90GIO Release v2.1
+#  F90GIO Release v2.2
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7729468.svg)](https://doi.org/10.5281/zenodo.7729468)
 [![GitHub Clones](https://img.shields.io/badge/dynamic/json?color=blue&label=Unique%20clone%20since%2009/13/2023&query=uniques&url=https://gist.githubusercontent.com/cd10kfsu/0ff3d9be8522379962d2e1be60962ee7/raw/clone.json&logo=github)](https://github.com/MShawon/github-clone-count-badge)
 [![build_gfortran](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml/badge.svg)](https://github.com/cd10kfsu/F90GIO/actions/workflows/build_gfortran.yml)
