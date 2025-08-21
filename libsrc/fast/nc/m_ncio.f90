@@ -18,6 +18,8 @@ MODULE m_ncio
                                          c_associated, c_f_pointer
   IMPLICIT NONE
   PRIVATE
+
+  PRIVATE :: fstr_to_cstr, cstr_to_fstr
   
   PUBLIC :: NF90_DOUBLE, NF90_FLOAT, NF90_INT, NF90_SHORT, NF90_BYTE
 
@@ -192,6 +194,7 @@ MODULE m_ncio
     INTEGER(i1) :: genvar  = 9
     INTEGER(i1) :: endgen  = 10
     INTEGER(i1) :: gid     = 11
+    INTEGER(i1) :: strlen = 125
     INTEGER(i1) :: no_netcdf_c = 126
     INTEGER(i1) :: undef  = 127 ! max positive for signed 8-byte int
   END TYPE 
@@ -699,6 +702,41 @@ END SUBROUTINE
 !--------------------------------------------------------------------------------
 ! read attributes: c-string using netcdf-c library
 !--------------------------------------------------------------------------------
+SUBROUTINE cstr_to_fstr(cstr, fstr)
+  IMPLICIT NONE
+  CHARACTER(kind=C_CHAR,len=1),INTENT(IN) :: cstr(:)
+  CHARACTER(*),INTENT(INOUT) :: fstr
+  INTEGER :: k, nc
+
+  nc = size(cstr)
+  IF (len(fstr) + 1 < nc) THEN
+     WRITE(lout_log,*) "[err] cstr_to_fstr: len_trim(fstr) + 1 < nc: ", len(fstr), nc
+     CALL mystop(errcode%strlen)
+  ENDIF 
+  fstr = ""
+  DO k = 1, nc
+     IF (cstr(k) .eq. C_NULL_CHAR) EXIT 
+     fstr(k:k) = cstr(k)
+  END DO
+  
+END SUBROUTINE
+
+
+SUBROUTINE fstr_to_cstr(fstr, cstr)
+  IMPLICIT NONE
+  CHARACTER(*),INTENT(IN) :: fstr
+  CHARACTER(kind=C_CHAR,len=1),ALLOCATABLE :: cstr(:)
+  INTEGER :: nf, k
+ 
+  nf = len_trim(fstr)
+  allocate(cstr(nf+1))
+  do k = 1, nf
+     cstr(k) = fstr(k:k)
+  end do
+  cstr(nf+1) = C_NULL_CHAR
+
+END SUBROUTINE
+
 SUBROUTINE nc_rdatt_cstr(fid, varname, attname, attval)
   IMPLICIT NONE
 
@@ -710,39 +748,21 @@ SUBROUTINE nc_rdatt_cstr(fid, varname, attname, attval)
 
   INTEGER(i4) :: varid, istat
   INTEGER(i4) :: attlen
-  TYPE(C_PTR) :: cptr_attstr
-  CHARACTER(kind=C_CHAR,len=1),pointer :: ptr_attstr(:)
-  CHARACTER(kind=C_CHAR),allocatable :: cvarname(:), cattname(:)
+  TYPE(C_PTR) :: cptr_attval
+  CHARACTER(kind=C_CHAR,len=1),POINTER :: fptr_attval(:)
+  CHARACTER(kind=C_CHAR,len=1),ALLOCATABLE :: cvarname(:), cattname(:)
   INTEGER :: k, n
 
-  n = len_trim(varname)
-  allocate(cvarname(n+1))
-  do k = 1, n
-     cvarname(k) = varname(k:k)
-  end do
-  cvarname(n+1) = C_NULL_CHAR
+  CALL fstr_to_cstr(trim(varname),cvarname)
+  CALL fstr_to_cstr(trim(attname),cattname)
 
-  n = len_trim(attname)
-  allocate(cattname(n+1))
-  do k = 1, n
-     cattname(k) = attname(k:k)
-  end do
-  cattname(n+1) = C_NULL_CHAR
-
-  cptr_attstr = nc_rdatt_cstr1d_f90(fid, cvarname,cattname, attlen)
-  if (.not.c_associated(cptr_attstr) ) then
+  cptr_attval = nc_rdatt_cstr1d_f90(fid, cvarname,cattname, attlen)
+  if (.not.c_associated(cptr_attval) ) then
      write(lout_log,*) "[err] nc_rdatt_cstr: Failed to get the pointer from C-string"
      call mystop(errcode%attval)
   end if
-  call c_f_pointer(cptr_attstr,ptr_attstr, [attlen+1])
-  attval=""
-  if (attlen+1 > len(attval)) then
-      write(lout_log,*) "[err] nc_rdatt_cstr:attlen + 1 > len(attval):",attlen,len(attval)
-      call mystop(errcode%attval)
-  end if
-  do k = 1, attlen
-     attval(k:k) = ptr_attstr(k)
-  end do
+  call c_f_pointer(cptr_attval, fptr_attval, [attlen+1])
+  call cstr_to_fstr(fptr_attval, attval)
 
 #else
 
