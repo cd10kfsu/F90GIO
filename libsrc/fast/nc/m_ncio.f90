@@ -14,6 +14,8 @@ MODULE m_ncio
                     NF90_Get_Var, NF90_Put_Var, &
                     NF90_Create, NF90_Def_dim, NF90_Def_Var, NF90_Enddef, NF90_reDef, &
                     NF90_GLOBAL, NF90_Get_Att
+  USE, INTRINSIC :: iso_c_binding, ONLY: C_CHAR, C_INT, C_PTR, C_NULL_CHAR, &
+                                         c_associated, c_f_pointer
   IMPLICIT NONE
   PRIVATE
   
@@ -32,10 +34,13 @@ MODULE m_ncio
   PUBLIC :: nc_end_create
 
 ! Read Attributes
-  PUBLIC :: nc_rdatt
+  PUBLIC :: nc_rdatt ! excluding nc_rdatt_cstr
 
 ! low-level read Attributes
-  PUBLIC :: nc_rdatt_str, nc_rdatt_i1, nc_rdatt_i2, nc_rdatt_i4, &
+  PUBLIC :: nc_rdatt_cstr  ! read in the C-string attirbutes
+
+  PUBLIC :: nc_rdatt_fstr  ! read in the Fortran Chararacter(*) attributes
+  PUBLIC :: nc_rdatt_i1, nc_rdatt_i2, nc_rdatt_i4, &
             nc_rdatt_r4, nc_rdatt_r8
 
 ! Get dimension
@@ -82,7 +87,6 @@ MODULE m_ncio
 !-------------------------------------------------------------------------------
 ! Internal vars & subs
   INTERFACE nc_rdatt
-    MODULE PROCEDURE nc_rdatt_str
     MODULE PROCEDURE nc_rdatt_i1, nc_rdatt_i2, nc_rdatt_i4
     MODULE PROCEDURE nc_rdatt_r4, nc_rdatt_r8
   END INTERFACE
@@ -149,6 +153,22 @@ MODULE m_ncio
     MODULE PROCEDURE nc_wrtvar4d_r4, nc_wrtvar4d_r8
   END INTERFACE
 
+#ifdef HAS_NC_C
+! used by nc_rdatt_cstr
+  INTERFACE
+      FUNCTION nc_rdatt_cstr1d_f90(ncid, varname, attname, attlen) &
+      RESULT (attstr) BIND(c, name="nc_rdatt_cstr1d")
+        IMPORT C_INT, C_CHAR, C_PTR
+        IMPLICIT NONE
+
+        INTEGER(C_INT),VALUE,INTENT(IN) :: ncid
+        CHARACTER(C_CHAR),   INTENT(IN) :: varname(*)
+        CHARACTER(C_CHAR),   INTENT(IN) :: attname(*)
+        INTEGER(C_INT),      INTENT(OUT) :: attlen
+        TYPE(C_PTR) :: attstr
+      END FUNCTION
+  END INTERFACE
+#endif
 
   INTEGER,PARAMETER :: i1 = 1
   INTEGER,PARAMETER :: i2 = 2
@@ -172,6 +192,7 @@ MODULE m_ncio
     INTEGER(i1) :: genvar  = 9
     INTEGER(i1) :: endgen  = 10
     INTEGER(i1) :: gid     = 11
+    INTEGER(i1) :: no_netcdf_c = 126
     INTEGER(i1) :: undef  = 127 ! max positive for signed 8-byte int
   END TYPE 
   TYPE(t_errcode),SAVE,PRIVATE:: errcode
@@ -675,11 +696,67 @@ SUBROUTINE nc_wrtvar4d_r8(fid, varname, varval)
 END SUBROUTINE 
 
 
+!--------------------------------------------------------------------------------
+! read attributes: c-string using netcdf-c library
+!--------------------------------------------------------------------------------
+SUBROUTINE nc_rdatt_cstr(fid, varname, attname, attval)
+  IMPLICIT NONE
+
+  INTEGER(i4), INTENT(IN) :: fid
+  CHARACTER(*),INTENT(IN) :: varname, attname
+  CHARACTER(*),INTENT(INOUT) :: attval
+
+#ifdef HAS_NC_C
+
+  INTEGER(i4) :: varid, istat
+  INTEGER(i4) :: attlen
+  TYPE(C_PTR) :: cptr_attstr
+  CHARACTER(kind=C_CHAR,len=1),pointer :: ptr_attstr(:)
+  CHARACTER(kind=C_CHAR),allocatable :: cvarname(:), cattname(:)
+  INTEGER :: k, n
+
+  n = len_trim(varname)
+  allocate(cvarname(n+1))
+  do k = 1, n
+     cvarname(k) = varname(k:k)
+  end do
+  cvarname(n+1) = C_NULL_CHAR
+
+  n = len_trim(attname)
+  allocate(cattname(n+1))
+  do k = 1, n
+     cattname(k) = attname(k:k)
+  end do
+  cattname(n+1) = C_NULL_CHAR
+
+  cptr_attstr = nc_rdatt_cstr1d_f90(fid, cvarname,cattname, attlen)
+  if (.not.c_associated(cptr_attstr) ) then
+     write(lout_log,*) "[err] nc_rdatt_cstr: Failed to get the pointer from C-string"
+     call mystop(errcode%attval)
+  end if
+  call c_f_pointer(cptr_attstr,ptr_attstr, [attlen+1])
+  attval=""
+  if (attlen+1 > len(attval)) then
+      write(lout_log,*) "[err] nc_rdatt_cstr:attlen + 1 > len(attval):",attlen,len(attval)
+      call mystop(errcode%attval)
+  end if
+  do k = 1, attlen
+     attval(k:k) = ptr_attstr(k)
+  end do
+
+#else
+
+  write(lout_log,*) "[err] nc_rdatt_cstr: not usable since netcdf-c library not available"
+  call mystop(errcode%no_netcdf_c)
+
+#endif
+
+END SUBROUTINE
 
 !--------------------------------------------------------------------------------
 ! read attributes
 !--------------------------------------------------------------------------------
-SUBROUTINE nc_rdatt_str(fid, varname, attname, attval)
+SUBROUTINE nc_rdatt_fstr(fid, varname, attname, attval)
   IMPLICIT NONE
 
   INTEGER(i4), INTENT(IN) :: fid

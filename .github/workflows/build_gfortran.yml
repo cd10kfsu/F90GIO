@@ -38,7 +38,7 @@ jobs:
     - name: "cmake build"
       run: |
            source ./config/env.gnu.github.sh
-           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_Fortran_COMPILER=gfortran -DBUILD_H4=ON -DBUILD_H5=ON -DH5_VERSION_1_8=OFF -DBUILD_NC=ON  -DBUILD_FAST_IO=ON -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install -DCMAKE_VERBOSE_MAKEFILE=ON
+           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=gcc -DCMAKE_Fortran_COMPILER=gfortran -DBUILD_H4=ON -DBUILD_H5=ON -DH5_VERSION_1_8=OFF -DBUILD_NC=ON -DUSE_NC_C=ON -DBUILD_FAST_IO=ON -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install -DCMAKE_VERBOSE_MAKEFILE=ON
            cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: "cmake test"
@@ -58,8 +58,8 @@ jobs:
 
            source ${{github.workspace}}/config/env.gnu.github.sh
 
-           gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE}  -c test_ncio.f90
-           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS}
+           gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE} -I${NC_C_INCLUDE} -c test_ncio.f90
+           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS} ${NC_C_LIBS}
            gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
            gfortran test_h5io.o -o test_h5io.x -L${{github.workspace}}/install/lib -lh5io ${H5_LIBS}
 
