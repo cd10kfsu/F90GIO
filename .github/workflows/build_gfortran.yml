@@ -17,7 +17,7 @@ jobs:
     - name: "install NetCDF, HDF4, HDF5"
       run: |
            sudo apt-get update
-           sudo apt-get install -y --no-install-recommends cmake
+           #sudo apt-get install -y --no-install-recommends cmake
            sudo apt-get install -y --no-install-recommends gfortran
            sudo apt-get install -y --no-install-recommends libnetcdf-dev libnetcdff-dev netcdf-bin  
            sudo apt-get install -y --no-install-recommends hdf4-tools libhdf4-dev 
@@ -43,7 +43,7 @@ jobs:
 
     - name: "cmake test"
       working-directory: ${{github.workspace}}/build
-      run: ctest -C ${{env.BUILD_TYPE}} --verbose --output-on-failure 
+      run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure 
 
     - name: "cmake install"
       working-directory: ${{github.workspace}}/build
@@ -59,6 +59,9 @@ jobs:
            source ${{github.workspace}}/config/env.gnu.github.sh
 
            gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE} -I${NC_C_INCLUDE} -c test_ncio.f90
+           gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS} ${NC_C_LIBS}
+
+           gfortran -cpp -DHAS_NC_C -I${{github.workspace}}/install/include -I${NC_INCLUDE} -I${NC_C_INCLUDE} -c test_ncio_group.f90
            gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS} ${NC_C_LIBS}
 
            gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
