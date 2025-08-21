@@ -18,7 +18,7 @@ export NC_LIBS=`nf-config --flibs`
 
 # config for NetCDF-C library
 export NC_C_INCLUDE=`nc-config --cflags|cut -d " " -f1 | cut -d "I" -f 2`
-export NC_C_LIBS=`nf-config --libs`
+export NC_C_LIBS=`nc-config --libs`
 
 # config for HDF4 
 export H4_INCLUDE=""
