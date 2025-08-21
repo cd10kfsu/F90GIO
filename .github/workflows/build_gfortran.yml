@@ -43,7 +43,7 @@ jobs:
 
     - name: "cmake test"
       working-directory: ${{github.workspace}}/build
-      run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure 
+      run: ctest -C ${{env.BUILD_TYPE}} --verbose --output-on-failure 
 
     - name: "cmake install"
       working-directory: ${{github.workspace}}/build
@@ -60,6 +60,7 @@ jobs:
 
            gfortran -I${{github.workspace}}/install/include -I${NC_INCLUDE} -I${NC_C_INCLUDE} -c test_ncio.f90
            gfortran test_ncio.o -o test_ncio.x -L${{github.workspace}}/install/lib -lncio ${NC_LIBS} ${NC_C_LIBS}
+
            gfortran -I${{github.workspace}}/install/include -I${H5_INCLUDE} -c test_h5io.f90
            gfortran test_h5io.o -o test_h5io.x -L${{github.workspace}}/install/lib -lh5io ${H5_LIBS}
 
