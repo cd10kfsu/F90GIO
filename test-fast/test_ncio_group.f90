@@ -40,6 +40,7 @@ PROGRAM test_ncio_group
   WRITE(6,*) "[msg] ioda_read::MetaData - latitude: _FillValue =", rFillValue
 
 #ifdef HAS_NC_C
+  WRITE(6,*) "[msg] built with HAS_NC_C. start reading c-string"
   CALL nc_rdatt_cstr(fid, "", "_ioda_layout", sUnits)
   WRITE(6,*) "[msg] ioda_read:: global_att: _ioda_layout =", trim(sUnits)
   CALL verify_results(trim(sUnits), "ObsGroup", "incorrect global att", 1)
@@ -59,6 +60,8 @@ PROGRAM test_ncio_group
   CALL nc_rdatt_cstr(gid, "longitude", "units", sUnits)
   WRITE(6,*) "[msg] ioda_read::MetaData - longitude: units =", trim(sUnits)
   CALL verify_results(trim(sUnits), "degrees_east", "incorrect longitude unit", 5)
+#else
+  WRITE(6,*) "[msg] built without HAS_NC_C. skip reading c-string"
 #endif
 
 ! read another group "hofx0"

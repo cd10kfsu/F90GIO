@@ -27,11 +27,18 @@ possible. Thanks!
 
 
 ## Quick start: Install F90GIO library
+1. If there a predefined env is found under `config`, then simply run
+   ```
+   ./install.bsh config/<predefined_env_file_name>
+   ```
+   For example, `./install.bsh config/env.gnu.derecho.sh`
+
+## Step-by-step installation
 1. Running the command 
    ```
    source config/env.[compiler].[machine].sh
    ```
-   to set the environmental variables required by `F90GIO`, essentially variables for netcdf, hdf4, and hdf5 (only set the vars for the library that you will use). There are several template under the dir `config` to start with.
+   to set the environmental variables required by `F90GIO`, essentially variables for netcdf, hdf4, and hdf5 (only set the vars for the library that you will use). There are several templates under the dir `config` to create your own `config/env.sh`.
 
 2. Go to the top directory of this repo, run the following commands
    ```

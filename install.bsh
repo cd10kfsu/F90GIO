@@ -1,0 +1,46 @@
+#!/bin/bash -e
+
+# usage:
+#   ./install.bsh config/env.gnu.derecho.sh "", or (build F90GIO using predefined config & install to user-defined location)
+#   ./install.bsh config/env.gnu.derecho.sh, or (build F90GIO using predefined config & install to default location)
+#   ./install.bsh     (need to assign building options and config/env.sh by the users
+
+if [ $# -lt 1 ]; then
+
+    # modify this section  if not providing
+    echo "manually set cmake vars"
+
+    CC="gcc"             # C COMPILER
+    FC="gfortran"        # Fortran COMPILER
+
+    BUILD_NC="ON"        # ON (default) if build netcdf-fortran F90GIO lib; otherwise OFF
+    USE_NC_C="ON"        # ON (default) if use netcdf-c as well for reading c-string attributes ; otherwise OFF
+    BUILD_H4="OFF"       # ON if build hdf4 lib; otherwise OFF (default)
+    BUILD_H5="ON"        # ON (default) if build hdf5 lib; otherwise OFF
+    H5_VERSION_1_8="OFF" # ON if hdf5 lib has a version <=1.8; otherwise OFF (default)
+    BUILD_FAST_IO="ON"   # ON (default) if use fast netcdf/hdf5 F90GIO lib; otherwise OFF
+
+    INSTALL_PREFIX="$PWD/install"
+    env="config/env.sh"
+
+elif [ $# -eq 1 ]; then 
+
+    INSTALL_PREFIX="$PWD/install"
+    env="$1"
+
+elif [ $# -eq 2 ]; then
+
+    INSTALL_PREFIX="$2"
+    env="$1"
+
+else
+
+    echo "[error] "$0": unaccepted inputs: at most two arguments. exit now"
+    exit 1
+
+fi
+
+echo "will set CMAKE vars and env from predefined env=$env & install at INSTALL_PREFIX=$INSTALL_PREFIX"
+
+
+. $env && mkdir -p build && cd build && cmake .. -DBUILD_NC="$BUILD_NC" -DBUILD_H4="$BUILD_H4" -DBUILD_H5="$BUILD_H5" -DH5_VERSION_1_8="$H5_VERSION_1_8" -DBUILD_FAST_IO="$BUILD_FAST_IO" -DUSE_NC_C="$USE_NC_C" -DCMAKE_Fortran_COMPILER="$FC" -DCMAKE_C_COMPILER="$CC" -DCMAKE_INSTALL_PREFIX="$INSTALL_PREFIX" && make && make test && make install
