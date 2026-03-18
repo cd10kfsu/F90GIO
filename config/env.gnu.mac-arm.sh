@@ -24,7 +24,8 @@ export H4_LIBS="" #`h4fc -show TESTSRC | awk -F"TESTSRC " '{print $2}'`
 # config for HDF5
 export H5_INCLUDE="/opt/homebrew/include"
 export H5_LIBS="-L/opt/homebrew/lib -lhdf5_fortran -lhdf5"
-
+#export H5_INCLUDE="/opt/homebrew/Cellar/hdf5/1.14.3_1/include"
+#export H5_LIBS="-L/opt/homebrew/Cellar/hdf5/1.14.3_1/lib -lhdf5_fortran -lhdf5"
 
 # config for F90GIO options
 export CC="gcc"             # C COMPILER
