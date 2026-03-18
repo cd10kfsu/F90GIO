@@ -1,4 +1,4 @@
-##/bin/bash -xe
+#!/bin/bash -xe
 
 
 # Configurations for gcc-14 on Derecho
